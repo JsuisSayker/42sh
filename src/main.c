@@ -1,20 +1,18 @@
 /*
 ** EPITECH PROJECT, 2023
-** main
+** my_scripts
 ** File description:
 ** main
 */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include "minishell.h"
+#include "mysh.h"
 
-int main(int argc, char *const *const argv, char **env)
+int main(int argc, char **argv, char **env)
 {
-    if (argc != 1 || argv[1] != NULL)
+    if (argc != 1 || argv[1] != NULL || env == NULL)
         return KO;
-    char **new_env = env_cpy(env);
-    return launch_shell(new_env);
+    char **my_env = copy_env(env);
+    if (my_env == NULL)
+        return KO;
+    return mysh(my_env);
 }

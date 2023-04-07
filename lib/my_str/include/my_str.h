@@ -1,31 +1,44 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_str lib functions header
+** my
 ** File description:
-** my_str
+** my
 */
 
-#ifndef STR_LIB
-    #define STR_LIB
-    int my_compute_power_rec (int nb, int p);
-    int my_isneg (int n);
-    int my_strcmp(char const *s1, char const *s2);
-    int my_strncmp(char const *s1, char const *s2, int n);
-    char *my_strcpy (char *dest, char const *src);
-    int my_strlen (char const *str);
-    char *my_strlowcase(char *str);
-    char *my_strncpy(char *dest, char const *src, int n);
-    char *my_strstr(char *str, char const *to_find);
-    char *my_strupcase(char *str);
-    int my_swap (int *a, int *b);
-    int my_char_isalpha(const char c);
-    int count_words_in_str(char *str);
-    int len_of_an_str(char *str, int count, char *separator);
-    char **my_str_to_word_array(char *str, char *separator);
-    void not_a_char_in_str(char *str, int *count, char *separator);
-    int is_a_sep(char c, char *separator);
-    int count_words_in_args(char *str, char *separator);
-    void end_of_the_word(char **array_words, int i, int *char_in_str,
-    int *count);
-    int my_str_is_alphanum(const char *str);
-#endif /* !STR_LIB */
+#ifndef MY_STR_H_
+    #define MY_STR_H_
+    int my_put_char(char const c);
+    void my_swap(int *a, int *b);
+    int my_put_str(char const *str);
+    int my_str_len(char const *str);
+    int my_get_nbr(char const *str);
+    int my_str_cpy(char *dest, char const *src);
+    int my_str_n_cpy(char *dest, char const *src, int n);
+    int my_rev_str(char *str);
+    char *my_str_str(char *str, char const *to_find);
+    int my_str_cmp(char const *s1, char const *s2);
+    int my_str_n_cmp(char const *s1, char const *s2, int n);
+    int my_str_up_case(char *str);
+    int my_str_low_case(char *str);
+    int my_str_capitalize(char *str);
+    int my_str_is_alpha(char const *str);
+    int my_str_is_num(char const *str);
+    int my_str_is_lower(char const *str);
+    int my_str_is_upper(char const *str);
+    int my_str_is_printable(char const *str);
+    int my_show_str(char const *str);
+    int my_show_mem(char const *str, int size);
+    int my_str_cat(char *dest, char const *src);
+    int my_str_n_cat(char *dest, char const *src, int nb);
+    int my_show_word_array(char *const *tab);
+    char **my_str_to_word_array(char const * str);
+    int my_is_prime(int const nb);
+    int my_is_alpha(char const c);
+    int my_is_lower(char const c);
+    int my_is_num(char const c);
+    int my_is_upper(char const c);
+    int my_is_printable(char const c);
+    char *my_load_file_in_memory(const char *filename);
+    int my_count_nb_char_in_str(char *str, char spe_char);
+    char **my_load_file_in_array(const char *filename);
+#endif /* MY_STR_H_ */

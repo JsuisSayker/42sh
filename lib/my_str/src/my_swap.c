@@ -1,14 +1,15 @@
 /*
-** EPITECH PROJECT, 2022
+** EPITECH PROJECT, 2023
 ** my_swap
 ** File description:
-** swap two number
+** swaps the content of two integers
 */
 
-int my_swap (int *a, int *b)
+void my_swap(int *a, int * b);
+
+void my_swap(int *a, int * b)
 {
-    int c;
-    c = *a;
+    int temp = *a;
     *a = *b;
-    *b = c;
+    *b = temp;
 }
