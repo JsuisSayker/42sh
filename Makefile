@@ -85,7 +85,7 @@ CPPFLAGS	=	-I include/\
 				-I lib/my_linked_list/include\
 				-I lib/my_int/include\
 
-NAME		=	mysh
+NAME		=	42sh
 
 all: make_libs $(NAME)
 
