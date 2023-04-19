@@ -63,7 +63,7 @@ OBJ_ERROR	=	$(DIR_ERROR:.c=.o)
 
 OBJ			=	$(OBJ_SRC) $(OBJ_TAB) $(OBJ_COMMAND) $(OBJ_ERROR) $(OBJ_TOOLBOX)
 
-NAME		=	mysh
+NAME		=	42sh
 
 LDLIB		=	-L./lib/
 
