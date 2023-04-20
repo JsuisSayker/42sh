@@ -1,6 +1,7 @@
-# Minshell 2
+# 42sh
 ### General Info
 ***
+```
 Reproduces the terminal with :
         • inhibitors (‘\’),
         • globbings (‘*’, ‘?’, ‘[’, ’]’),
@@ -13,6 +14,7 @@ Reproduces the terminal with :
         • aliases,
         • line edition (multiline, dynamic rebinding, auto-completion dynamic)
         • scripting (a bit harsh though)
+```
 ## Technologies
 ***
 For this project I use :
