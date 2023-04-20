@@ -1,13 +1,12 @@
 /*
 ** EPITECH PROJECT, 2023
-** proto_lib
+** my
 ** File description:
-** proto_lib
+** my
 */
 
-#ifndef PROTO_LIB_H
-
-    #define PROTO_LIB_H
+#ifndef MY_H_
+    #define MY_H_
 
     char **my_tabcpy(char **src);
     char *my_strcpy(char const *src);
@@ -32,4 +31,4 @@
     int my_all_str_isalpha_num(char const *str);
     int my_strlen(char const *str);
 
-#endif /* PROTO_LIB_H */
+#endif /* !MY_H_ */

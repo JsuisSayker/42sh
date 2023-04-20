@@ -8,8 +8,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int my_tablen(char **tab);
-char  *my_strcpy(char const *src);
+#include "my.h"
 
 char **my_tabcpy(char **src)
 {

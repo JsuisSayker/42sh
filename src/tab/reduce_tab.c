@@ -18,7 +18,7 @@ static int count_src(char **src, char *str, int len_str)
     int count = 0;
     int i = 0;
     for (i = 0; src[i] != NULL; i += 1){
-        if (my_strncmp_spe(str, src[i], len_str) == OK &&
+        if (my_strcmp(str, src[i]) == OK &&
         src[i][len_str] == '=')
             count += 1;
     }
@@ -36,7 +36,7 @@ char **reduce_tab(char **src, char *str)
     char **dest = malloc(sizeof(char *) * (len_src + 1));
     int x = 0;
     for (int y = 0; src[y] != NULL; y += 1){
-        if (my_strncmp_spe(all_str->str, src[y], all_str->len_str) == OK &&
+        if (my_strcmp(all_str->str, src[y]) == OK &&
             src[y][all_str->len_str] == '='){
             continue;
         } else {

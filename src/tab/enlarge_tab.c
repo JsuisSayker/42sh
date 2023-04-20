@@ -18,8 +18,7 @@ static int count_src(char **src, char *str, int len_str, int *exist_or_not)
     int count = 0;
     int i = 0;
     for (i = 0; src[i] != NULL; i += 1){
-        if (my_strncmp_spe(str, src[i], len_str) == OK &&
-        src[i][len_str] == '=')
+        if (my_strcmp(str, src[i]) == OK && src[i][len_str] == '=')
             count += 1;
     }
     if (count == 0){

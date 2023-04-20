@@ -62,7 +62,7 @@ int len_src)
     if (value != NULL)
         entry_2 = my_strlen(value);
     for (y = 0; src[y] != NULL; y += 1){
-        if (my_strncmp_spe(all_str->str, src[y], entry_1) == OK){
+        if (my_strcmp(all_str->str, src[y]) == OK){
             tab[y] = modif_tab_sub(all_str, value, (entry_1 + entry_2 + 1));
         } else {
             tab[y] = my_strcpy(src[y]);

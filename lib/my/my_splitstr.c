@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** Minishell1
+** Lib
 ** File description:
 ** my_splitstr
 */
@@ -8,7 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-int my_strlen(char const *str);
+#include "my.h"
 
 static char *malloc_and_create_str(char const *str, int i, int j)
 {

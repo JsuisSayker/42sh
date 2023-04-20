@@ -8,15 +8,17 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int my_strlen(char const *str);
+#include "my.h"
+#include "macro.h"
 
 char *my_strcpy(char const *src)
 {
-    if (src == NULL)
-        return NULL;
     int count = 0;
     char *dest = NULL;
-    for (count = 0; src[count] != '\0' && src[count] != '\n'; count += 1);
+    if (src == NULL)
+        return NULL;
+    if ((count = my_strlen(src)) == KO)
+        return NULL;
     dest = malloc(sizeof(char) * (count + 1));
     if (dest == NULL)
         return NULL;
