@@ -14,10 +14,10 @@
 
 static char *go_to_variable(char **env, char *str)
 {
+    int len_str = 0;
     if (env == NULL || str == NULL)
         return NULL;
-    int len_str = my_strlen(str);
-    if (len_str == KO)
+    if ((len_str = my_strlen(str)) == KO)
         return NULL;
     for (int y = 0; env[y] != NULL; y += 1){
         if (my_strcmp(str, env[y]) == 0)

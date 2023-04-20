@@ -8,6 +8,7 @@
 SRC			=	main.c					\
 				minishell_one.c			\
 				cd/move_in_folder.c		\
+				cd/move_in_folder_sub.c	\
 				cd/cd.c					\
 
 SRC_TOOLBOX	=	take_env.c		\

@@ -14,8 +14,7 @@
 
 static int cd_checker(base_minishell_t *base, char **tab)
 {
-    if (my_strcmp("-", tab[1]) == OK &&
-    tab[1][1] == '\0'){
+    if (my_strncmp("-", tab[1], 1) == OK && tab[1][1] == '\0'){
         if (return_old_folder(base) != OK)
             return KO;
         return OK;

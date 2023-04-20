@@ -81,5 +81,7 @@
     int move_from_home(base_minishell_t *base, char **tab);
     int return_old_folder(base_minishell_t *base);
     int move_to_home(base_minishell_t *base);
+    int return_old_foldre_sub(base_minishell_t *base, char *last_pwd,
+    char *my_pwd);
 
 #endif /* !PROTO_H_ */

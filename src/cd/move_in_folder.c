@@ -49,19 +49,15 @@ int return_old_folder(base_minishell_t *base)
     char *last_pwd = NULL;
     if (base == NULL)
         return KO;
-    if ((last_pwd = take_in_env(base->env, "OLDPWD=")) == NULL)
+    if ((last_pwd = take_in_env(base->env, "OLDPWD=")) == NULL){
         write(2, ": No such file or directory.\n", 29);
+        return KO;
+    }
     my_pwd = get_my_pwd();
     if (last_pwd == NULL || my_pwd == NULL)
         return KO;
-    int len_pwd = my_strlen(my_pwd);
-    if (my_strncmp(last_pwd, my_pwd, len_pwd) == OK)
-        write(2, ": No such file or directory.\n", 29);
-    if (move_in_folder(base, last_pwd) != OK){
-        free(my_pwd);
-        free(last_pwd);
+    if (return_old_foldre_sub(base, last_pwd, my_pwd) != OK)
         return KO;
-    }
     free(my_pwd);
     return OK;
 }
