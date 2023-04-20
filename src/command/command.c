@@ -16,7 +16,7 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-static int execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
+static void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
 {
     execve(tab[0], tab, base->env);
     if (tab[0][0] != '.' && tab[0][1] != '/'){
@@ -28,8 +28,9 @@ static int execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
     }
     write(2, tab[0], my_strlen(tab[0]));
     write(2, ": Command not found.\n", 21);
-    free_all(base, need_tab, tab);
-    free_tab_int(need_tab);
+    free_all(base, need_tab);
+    if (base->yes_or_not == 1)
+        free_tab_int(need_tab);
 }
 
 static int command_execute(base_minishell_t *base, need_tab_t *need_tab,
@@ -41,7 +42,7 @@ char **tab)
     if (base->yes_or_not == 1){
         if (fonction_build(base, need_tab, tab) == OK){
             free_tab_int(need_tab);
-            free_all(base, need_tab, tab);
+            free_all(base, need_tab);
             exit(0);
         }
     }
