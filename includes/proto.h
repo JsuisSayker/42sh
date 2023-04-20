@@ -15,7 +15,7 @@
     int minishell_one(int ac, char const *const *av, char **env);
 
         /* toolbox */
-    int free_all(base_minishell_t *base, need_tab_t *need_tab, char **tab);
+    int free_all(base_minishell_t *base, need_tab_t *need_tab);
     int free_tab_int(need_tab_t *need_tab);
     int free_str(all_str_t *all_str);
     int free_big_tab(char ***tab);
