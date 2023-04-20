@@ -8,20 +8,22 @@
 SRC			=	main.c					\
 				minishell_one.c			\
 				cd/move_in_folder.c		\
-				cd/cd.c
+				cd/cd.c					\
 
 SRC_TOOLBOX	=	take_env.c		\
 				take_entry.c	\
 				starting.c		\
 				parameter.c		\
-				free.c
+				free.c			\
 
 SRC_TAB		=	reduce_tab.c					\
 				enlarge_tab.c					\
 				modif_or_add_array_to_tab.c		\
 				check_parameter_and_modif_tab.c	\
 				remove_of_tab.c					\
-				entry_w_parameter_or_not.c
+				entry_w_parameter_or_not.c		\
+				append_str_to_file.c			\
+				display_file.c					\
 
 SRC_COMMAND	=	command.c									\
 				command_checker.c							\
@@ -32,14 +34,14 @@ SRC_COMMAND	=	command.c									\
 				with_parameter/fonction_build.c				\
 				with_parameter/command_with_parameter.c		\
 				with_parameter/duplicate_and_close_pipe.c	\
-				with_parameter/fonction_build_checker.c
+				with_parameter/fonction_build_checker.c		\
 
 
 SRC_ERROR	=	check_argc_argv.c				\
 				check_pipe.c					\
 				error_message_cmd.c				\
 				error_message_for_redirector.c	\
-				check_redirector.c
+				check_redirector.c				\
 
 DIR_SRC		=	$(addprefix src/, $(SRC))
 
@@ -74,6 +76,7 @@ CPPFLAGS	=	-I./includes/ -ggdb3
 LCRITER		= -lcriterion
 
 $(NAME): $(OBJ)
+	mkdir .save
 	make -C lib/my/
 	gcc -o $@ $^ $(LDLIB) $(LMY)
 
@@ -90,6 +93,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	rm -f unit_tests*
+	rm -rf .save
 	make fclean -C lib/my/
 
 re: fclean $(NAME)

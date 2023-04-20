@@ -49,6 +49,8 @@ int *nbr_parameter)
     ssize_t nread;
     if ((nread = getline(&entry, &len, stdin)) == KO)
         return KO;
+    if (append_str_to_file(".save/history.txt", entry) == KO)
+        return KO;
     if (my_strlen(entry) == 0 || check_space(entry) != OK){
         free(entry);
         *restart = 1;

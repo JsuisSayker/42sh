@@ -58,8 +58,7 @@ int command(base_minishell_t *base, need_tab_t *need_tab, char **tab)
     if (pid < 0)
         return KO;
     if (pid == 0){
-        int other_return = command_execute(base, need_tab, tab);
-        return other_return;
+        return command_execute(base, need_tab, tab);
     } else {
         int value = 0;
         child_display(base, need_tab ,pid, value);

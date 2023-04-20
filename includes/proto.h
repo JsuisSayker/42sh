@@ -42,6 +42,8 @@
     int check_parameter_and_modif_tab(base_minishell_t *base);
     int entry_w_parameter_or_not(base_minishell_t *base, char *entry,
     int *nbr_parameter);
+    int append_str_to_file(const char *filename, char *str);
+    int display_file(const char *filename);
 
         /* error_handing */
     void error_and_free_message_cmd(base_minishell_t *base, char **tab);
@@ -68,7 +70,7 @@
     int print_env(char **env);
     int setenv_reprogramming(base_minishell_t *base, char *variable,
     char *value);
-    int child_display(base_minishell_t *base, need_tab_t *need_tab,
+    int child_display(base_minishell_t *base, need_tab_t *need_tab,\
     pid_t pid, int value);
     int unsetenv_reprogramming(base_minishell_t *base, char *str);
     char *string_command(char *path, char *entry);

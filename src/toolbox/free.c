@@ -15,8 +15,8 @@ int free_big_tab(char ***tab)
 {
     if (tab == NULL)
         return KO;
-    for (int y = 0; tab[y] != NULL; y += 1){
-        for (int x = 0; tab[y][x] != NULL; x += 1){
+    for (int y = 0; tab[y] != NULL; y += 1) {
+        for (int x = 0; tab[y][x] != NULL; x += 1) {
             free(tab[y][x]);
         }
         free(tab[y]);
@@ -29,8 +29,9 @@ int free_tab_char(char **tab)
 {
     if (tab == NULL)
         return KO;
-    for (int i = 0; tab[i] != NULL; i += 1)
+    for (int i = 0; tab[i] != NULL; i += 1){
         free(tab[i]);
+    }
     free(tab);
     return OK;
 }
@@ -39,8 +40,9 @@ int free_tab_int(need_tab_t *need_tab)
 {
     if (need_tab == NULL)
         return KO;
-    for (int i = 0; i < need_tab->nbr_parameter; i += 1)
+    for (int i = 0; i < need_tab->nbr_parameter; i += 1){
         free(need_tab->fd[i]);
+    }
     free(need_tab->fd);
     return OK;
 }

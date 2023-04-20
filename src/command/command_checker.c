@@ -33,6 +33,12 @@ int *reprograming_command)
         *reprograming_command = 1;
         return OK;
     }
+    if (my_strncmp("!", base->command[0], 1) == OK){
+        if (display_file(".save/history.txt") != OK)
+            return KO;
+        *reprograming_command = 1;
+        return OK;
+    }
     return OK;
 }
 
