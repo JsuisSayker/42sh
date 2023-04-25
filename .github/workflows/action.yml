@@ -59,7 +59,7 @@ jobs:
           done < $input
       - name: Report banana result
         run: |
-          NB_ERROR=$(cat coding-style-reports.log | wc -l)
+          NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
           if [ $NB_ERROR -gt 0 ]; then
             ERRORS=$(cat /tmp/coding-style-reports.log);
             echo "Banana found $NB_ERROR error(s)"
