@@ -27,7 +27,7 @@ OBJ			=	$(SRC:.c=.o)
 
 NAME		=	libmy.a
 
-CPPFLAGS	=	-I./include/
+CPPFLAGS	=	-I./include/ -ggdb3
 
 DEBUG		=	-ggdb3
 
