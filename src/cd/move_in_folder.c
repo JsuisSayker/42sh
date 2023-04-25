@@ -35,14 +35,10 @@ int move_in_folder(base_minishell_t *base, char *direction)
         return KO;
     } else {
         char *pwd = get_my_pwd();
-        if (setenv_reprogramming(base, "PWD", pwd) != OK){
-            free(old_pwd);
+        if (setenv_reprogramming(base, "PWD", pwd) != OK)
             return KO;
-        }
-        if (setenv_reprogramming(base, "OLDPWD", old_pwd) != OK){
-            free(old_pwd);
+        if (setenv_reprogramming(base, "OLDPWD", old_pwd) != OK)
             return KO;
-        }
         free(pwd);
     }
     free(old_pwd);
