@@ -15,7 +15,7 @@ int history(base_minishell_t *base, char **tab)
 {
     if (tab == NULL)
         return KO;
-    char *tmp_pwd = my_strcat(base->pwd, "//.history.txt");
+    char *tmp_pwd = my_strcat(base->pwd, "/.history.txt");
     if (display_file(tmp_pwd) == KO)
         return KO;
     free(tmp_pwd);

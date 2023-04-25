@@ -11,6 +11,7 @@ save*
 unit*
 vgcore*
 tmp
+tester
 
 perso*
 Test.c

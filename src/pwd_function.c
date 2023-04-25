@@ -10,10 +10,7 @@
 
 char *pwd_function(void)
 {
-    char *str = malloc(sizeof(char) * 100);
-    for (int i = 0; i < 100; i += 1) {
-        str[i] = '\0';
-    }
-    char *value = getcwd(str, 100);
+    char *str = NULL;
+    char *value = getcwd(str, 0);
     return value;
 }

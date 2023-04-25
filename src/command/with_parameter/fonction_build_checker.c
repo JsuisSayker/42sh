@@ -37,7 +37,7 @@ char **tab_command)
         return OK;
     }
     if (my_strncmp("!", tab_command[0], 3) == OK){
-        char *tmp_pwd = my_strcat(base->pwd, "//.history.txt");
+        char *tmp_pwd = my_strcat(base->pwd, "/.history.txt");
         if (display_file(tmp_pwd) == KO)
             return 1;
         free(tmp_pwd);

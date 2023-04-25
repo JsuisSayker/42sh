@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** my_strcat
 ** File description:
-** rajoute le mot de 1 dans 2
+** my_strcat
 */
 
 #include <unistd.h>
@@ -24,7 +24,7 @@ char *my_strcat(char *dest, char const *src)
         tmp[count] = dest[i];
         count += 1;
     }
-    for (int i = 1; src[i] != '\0' && src[i] != '\n'; i += 1){
+    for (int i = 0; src[i] != '\0' && src[i] != '\n'; i += 1){
         tmp[count] = src[i];
         count += 1;
     }

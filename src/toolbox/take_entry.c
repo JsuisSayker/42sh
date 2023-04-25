@@ -62,7 +62,7 @@ int append_command_to_history(base_minishell_t *base, char * str)
 {
     if (str == NULL)
         return KO;
-    char *tmp_pwd = my_strcat(base->pwd, "//.history.txt");
+    char *tmp_pwd = my_strcat(base->pwd, "/.history.txt");
     if (append_str_to_file(tmp_pwd, str) == KO)
         return KO;
     free(tmp_pwd);

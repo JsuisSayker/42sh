@@ -14,8 +14,8 @@
 
 static char *get_my_pwd(void)
 {
-    char *buffer = malloc(sizeof(char) * 4096);
-    if (getcwd(buffer, 4095) == NULL)
+    char *buffer = NULL;
+    if (getcwd(buffer, 0) == NULL)
         return NULL;
     return buffer;
 }
@@ -33,10 +33,14 @@ int move_in_folder(base_minishell_t *base, char *direction)
         return KO;
     } else {
         char *pwd = get_my_pwd();
-        if (setenv_reprogramming(base, "PWD", pwd) != OK)
+        if (setenv_reprogramming(base, "PWD", pwd) != OK){
+            free(old_pwd);
             return KO;
-        if (setenv_reprogramming(base, "OLDPWD", old_pwd) != OK)
+        }
+        if (setenv_reprogramming(base, "OLDPWD", old_pwd) != OK){
+            free(old_pwd);
             return KO;
+        }
         free(pwd);
     }
     free(old_pwd);
