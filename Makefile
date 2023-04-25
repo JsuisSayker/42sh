@@ -33,6 +33,8 @@ SRC_COMMAND	=	command.c									\
 				unsetenv_setenv.c							\
 				string_command.c							\
 				child_display.c								\
+				alias.c										\
+				history.c									\
 				with_parameter/fonction_build.c				\
 				with_parameter/command_with_parameter.c		\
 				with_parameter/duplicate_and_close_pipe.c	\

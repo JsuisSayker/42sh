@@ -14,6 +14,8 @@
 
     int minishell_one(int ac, char const *const *av, char **env);
     char *pwd_function(void);
+    int alias(base_minishell_t *base, char **tab);
+    int history(base_minishell_t *base, char **tab);
 
         /* toolbox */
     int free_all(base_minishell_t *base, need_tab_t *need_tab);

@@ -58,7 +58,7 @@ int *nbr_parameter, int *restart)
     return OK;
 }
 
-int append_command_to_history(base_minishell_t *base, char const * const str)
+int append_command_to_history(base_minishell_t *base, char * str)
 {
     if (str == NULL)
         return KO;

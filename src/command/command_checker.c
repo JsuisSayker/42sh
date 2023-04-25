@@ -16,6 +16,8 @@ const struct fonction OPERATORS_FUNCS[] = {
     {"setenv", &setenv_exit},
     {"unsetenv", &unsetenv_exit},
     {"cd", &cd_reprogramming},
+    {"alias", &alias},
+    {"!", &history},
     {"NULL", NULL}
 };
 
@@ -25,14 +27,6 @@ int *reprograming_command)
     if (my_strncmp("exit", base->command[0], 4) == OK){
         *reprograming_command = 1;
         base->exit = 1;
-        return OK;
-    }
-    if (my_strncmp("!", base->command[0], 1) == OK){
-        char *tmp_pwd = my_strcat(base->pwd, "//.history.txt");
-        if (display_file(tmp_pwd) == KO)
-            return KO;
-        free(tmp_pwd);
-        *reprograming_command = 1;
         return OK;
     }
     return OK;

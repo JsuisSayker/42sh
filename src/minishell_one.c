@@ -83,6 +83,7 @@ int minishell_one(int ac, char const *const *av, char **env)
     return_value = minishell_one_sub(base, env);
     free_tab_char(base->path);
     free_tab_char(base->env);
+    free(base->pwd);
     free(base);
     return return_value;
 }
