@@ -10,7 +10,10 @@
 
 char *pwd_function(void)
 {
-    char *str = NULL;
-    char *value = getcwd(str, 0);
+   char *buffer = NULL;
+     char *str = NULL;
+    char *value = getcwd(buffer, 0);
+    if (value == NULL)
+        return NULL;
     return value;
 }

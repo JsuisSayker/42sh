@@ -31,7 +31,7 @@ int alias(base_minishell_t *base, char **tab)
         char *line = my_strcat(tab[1], " ");
         char *line_final = my_strcat(line, tab[2]);
         free(line);
-        char *line_final_aze = my_strcat(line_final, tab[2]);
+        char *line_final_aze = my_strcat(line_final, "\n");
         free(line_final);
         append_str_to_file(tmp_pwd, line_final_aze);
         free(tmp_pwd);

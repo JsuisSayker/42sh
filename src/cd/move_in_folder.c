@@ -15,9 +15,11 @@
 static char *get_my_pwd(void)
 {
     char *buffer = NULL;
-    if (getcwd(buffer, 0) == NULL)
+     char *str = NULL;
+    char *value = getcwd(buffer, 0);
+    if (value == NULL)
         return NULL;
-    return buffer;
+    return value;
 }
 
 int move_in_folder(base_minishell_t *base, char *direction)
