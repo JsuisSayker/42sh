@@ -10,6 +10,7 @@ SRC			=	main.c					\
 				cd/move_in_folder.c		\
 				cd/move_in_folder_sub.c	\
 				cd/cd.c					\
+				pwd_function.c			\
 
 SRC_TOOLBOX	=	take_env.c		\
 				take_entry.c	\
@@ -77,7 +78,6 @@ CPPFLAGS	=	-I./includes/ -ggdb3
 LCRITER		= -lcriterion
 
 $(NAME): $(OBJ)
-	mkdir .save
 	make -C lib/my/
 	gcc -o $@ $^ $(LDLIB) $(LMY)
 
@@ -94,7 +94,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	rm -f unit_tests*
-	rm -rf .save
 	make fclean -C lib/my/
 
 re: fclean $(NAME)

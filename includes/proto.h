@@ -13,6 +13,7 @@
     #define PROTO_H_
 
     int minishell_one(int ac, char const *const *av, char **env);
+    char *pwd_function(void);
 
         /* toolbox */
     int free_all(base_minishell_t *base, need_tab_t *need_tab);

@@ -79,6 +79,7 @@ int minishell_one(int ac, char const *const *av, char **env)
     if (base->path == NULL)
         return 1;
     base->env = take_env(env);
+    base->pwd = pwd_function();
     return_value = minishell_one_sub(base, env);
     free_tab_char(base->path);
     free_tab_char(base->env);

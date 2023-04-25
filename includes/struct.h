@@ -8,11 +8,12 @@
 #ifndef STRUCT_H_
     #define STRUCT_H_
 
-        typedef struct base_minishell_s {
+    typedef struct base_minishell_s {
         char **path;
         char **command;
         char ***p_command;
         char **env;
+        char *pwd;
         int return_value;
         int yes_or_not;
         int exit;

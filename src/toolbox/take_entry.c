@@ -17,10 +17,11 @@
 
 static void *modif_str(char *entry)
 {
+    int i = 0;
+
     if (entry == NULL)
         return NULL;
-    int i = 0;
-    for (i = 0; entry[i] != '\0' && entry[i] != '\n'; i += 1){
+    for (i = 0; entry[i] != '\0' && entry[i] != '\n'; i += 1) {
         if (entry[i] == '\t')
             entry[i] = ' ';
     }
@@ -31,7 +32,8 @@ static int check_space(char *entry)
 {
     int len_str = my_strlen(entry);
     int count = 0;
-    for (int i = 0; entry[i] != '\0'; i += 1){
+
+    for (int i = 0; entry[i] != '\0'; i += 1) {
         if (entry[i] == ' ')
             count += 1;
     }
@@ -56,6 +58,17 @@ int *nbr_parameter, int *restart)
     return OK;
 }
 
+int append_command_to_history(base_minishell_t *base, char const * const str)
+{
+    if (str == NULL)
+        return KO;
+    char *tmp_pwd = my_strcat(base->pwd, "//.history.txt");
+    if (append_str_to_file(tmp_pwd, str) == KO)
+        return KO;
+    free(tmp_pwd);
+    return OK;
+}
+
 int take_entry(base_minishell_t *base, char **env, int *restart,
 int *nbr_parameter)
 {
@@ -65,7 +78,7 @@ int *nbr_parameter)
     ssize_t nread;
     if ((nread = getline(&entry, &len, stdin)) == KO)
         return KO;
-    if (append_str_to_file(".save/history.txt", entry) == KO)
+    if (append_command_to_history(base, entry) == KO)
         return KO;
     if (take_entry_sub(base, entry, nbr_parameter, restart) == KO)
         return KO;
