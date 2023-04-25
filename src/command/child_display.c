@@ -17,22 +17,21 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-static void wait_fonction(need_tab_t *need_tab, pid_t pid, int value)
+static void wait_fonction(need_tab_t *need_tab, pid_t pid, int *value)
 {
     if (need_tab->tab_len < 1 || need_tab->tab_len == need_tab->tab_pos_x)
-        waitpid(pid, &value, WUNTRACED);
+        waitpid(pid, value, WUNTRACED);
     else
-        waitpid(pid, &value, WUNTRACED | WNOHANG);
+        waitpid(pid, value, WUNTRACED | WNOHANG);
 }
 
-static void child_display_sub(base_minishell_t *base, int return_value,
-int value, int core_dump_or_not)
+static void child_display_sub(base_minishell_t *base, int value)
 {
-    if (core_dump_or_not == 128){
+    if (WCOREDUMP(value) == 128){
         base->return_value += 128;
         write(2, " (core dumped)", 14);
     }
-    if (return_value == 1)
+    if (WEXITSTATUS(value) == 1)
         base->return_value += 1;
     if (WTERMSIG(value) == 8 || WTERMSIG(value) == 11){
         write(1, "\n", 1);
@@ -43,9 +42,7 @@ int child_display(base_minishell_t *base, need_tab_t *need_tab,
 pid_t pid, int value)
 {
     close_fonction(base, need_tab);
-    wait_fonction(need_tab, pid, value);
-    base->return_value = WEXITSTATUS(value);
-    int core_dump_or_not = WCOREDUMP(value);
+    wait_fonction(base, need_tab, pid, &value);
     if (WTERMSIG(value) == 8){
         base->return_value += 8;
         write(2, "Floating execption", 18);
@@ -54,7 +51,7 @@ pid_t pid, int value)
         base->return_value += 11;
         write(2, "Segmentation fault", 18);
     }
-    child_display_sub(base, base->return_value, value, core_dump_or_not);
+    child_display_sub(base, value);
     return OK;
 }
 
