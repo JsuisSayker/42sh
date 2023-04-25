@@ -12,25 +12,19 @@
 #include "struct.h"
 #include "proto_lib.h"
 
+const struct fonction OPERATORS_FUNCS[] = {
+    {"setenv", &setenv_exit},
+    {"unsetenv", &unsetenv_exit},
+    {"cd", &cd_reprogramming},
+    {"NULL", NULL}
+};
+
 static int check_reprograming_command_sub(base_minishell_t *base,
 int *reprograming_command)
 {
-    if (my_strncmp("unsetenv", base->command[0], 8) == OK){
+    if (my_strncmp("exit", base->command[0], 4) == OK){
         *reprograming_command = 1;
-        if (unsetenv_exit(base, base->command) != OK)
-            return KO;
-        return OK;
-    }
-    if (my_strncmp("setenv", base->command[0], 6) == OK){
-        *reprograming_command = 1;
-        if (setenv_exit(base, base->command) != OK)
-            return KO;
-        return OK;
-    }
-    if (my_strncmp("cd", base->command[0], 2) == OK){
-        *reprograming_command = 1;
-        if (cd_reprogramming(base, base->command) != OK)
-            return KO;
+        base->exit = 1;
         return OK;
     }
     if (my_strncmp("!", base->command[0], 1) == OK){
@@ -45,20 +39,19 @@ int *reprograming_command)
 static int check_reprograming_command(base_minishell_t *base,
 int *reprograming_command)
 {
-    if (my_strncmp("exit", base->command[0], 4) == OK){
-        *reprograming_command = 1;
-        base->exit = 1;
-        return OK;
-    }
-    if (my_strncmp("env", base->command[0], 3) == OK){
-        *reprograming_command = 1;
-        if (print_env(base->env) != OK)
+    int len_str = 0;
+    for (int i = 0; my_strncmp("NULL", OPERATORS_FUNCS[i].str, 4) != OK; i ++){
+        if ((len_str = my_strlen(OPERATORS_FUNCS[i].str)) == KO)
             return KO;
-        return OK;
+        if (my_strncmp(OPERATORS_FUNCS[i].str, base->command[0], len_str) ==
+        OK){
+            *reprograming_command = 1;
+            return OPERATORS_FUNCS[i].proto(base, base->command);
+        }
     }
-    if (check_reprograming_command_sub(base, reprograming_command) != OK)
-        return KO;
-    return OK;
+    if (check_reprograming_command_sub(base, reprograming_command) == OK)
+        return OK;
+    return KO;
 }
 
 int check_command_and_execute(base_minishell_t *base, need_tab_t *need_tab)

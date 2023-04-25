@@ -40,6 +40,22 @@ static int check_space(char *entry)
     return OK;
 }
 
+static int take_entry_sub(base_minishell_t *base, char *entry,
+int *nbr_parameter, int *restart)
+{
+    if (my_strlen(entry) == 0 || check_space(entry) != OK){
+        free(entry);
+        *restart = 1;
+        return OK;
+    } else {
+        modif_str(entry);
+        *nbr_parameter = take_parameter(entry);
+        if (entry_w_parameter_or_not(base, entry, nbr_parameter) != OK)
+            *restart = 1;
+    }
+    return OK;
+}
+
 int take_entry(base_minishell_t *base, char **env, int *restart,
 int *nbr_parameter)
 {
@@ -51,17 +67,8 @@ int *nbr_parameter)
         return KO;
     if (append_str_to_file(".save/history.txt", entry) == KO)
         return KO;
-    if (my_strlen(entry) == 0 || check_space(entry) != OK){
-        free(entry);
-        *restart = 1;
-        return OK;
-    } else {
-        modif_str(entry);
-        *nbr_parameter = take_parameter(entry);
-        if (entry_w_parameter_or_not(base, entry, nbr_parameter) != OK)
-            *restart = 1;
-
-    }
+    if (take_entry_sub(base, entry, nbr_parameter, restart) == KO)
+        return KO;
     free(entry);
     return OK;
 }
