@@ -29,7 +29,7 @@ int *reprograming_command)
     }
     if (my_strncmp("!", base->command[0], 1) == OK){
         char *tmp_pwd = my_strcat(base->pwd, "//.history.txt");
-        if (append_str_to_file(tmp_pwd, str) == KO)
+        if (display_file(tmp_pwd) == KO)
             return KO;
         free(tmp_pwd);
         *reprograming_command = 1;
