@@ -77,11 +77,13 @@ LMY			=	-lmy
 
 CPPFLAGS	=	-I./includes/ -ggdb3
 
+CFLAGS		=	-Wall -Wextra -Werror
+
 LCRITER		= -lcriterion
 
 $(NAME): $(OBJ)
 	make -C lib/my/
-	gcc -o $@ $^ $(LDLIB) $(LMY)
+	gcc -o $@ $^ $(LDLIB) $(LMY) $(CFLAGS)
 
 all: $(NAME)
 
