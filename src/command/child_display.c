@@ -27,7 +27,7 @@ pid_t pid, int value)
 }
 
 static void child_display_sub(base_minishell_t *base, int return_value,
-int segfault, int core_dump_or_not)
+int value, int core_dump_or_not)
 {
     if (core_dump_or_not == 128){
         base->return_value += 128;
@@ -35,7 +35,7 @@ int segfault, int core_dump_or_not)
     }
     if (return_value == 1)
         base->return_value += 1;
-    if (segfault == 8 || segfault == 11){
+    if (WTERMSIG(value) == 8 || WTERMSIG(value) == 11){
         write(1, "\n", 1);
     }
 }
@@ -45,18 +45,17 @@ pid_t pid, int value)
 {
     close_fonction(base, need_tab);
     wait_fonction(base, need_tab, pid, value);
-    int return_value = WEXITSTATUS(value);
+    base->return_value = WEXITSTATUS(value);
     int core_dump_or_not = WCOREDUMP(value);
-    int segfault = WTERMSIG(value);
-    if (segfault == 8){
+    if (WTERMSIG(value) == 8){
         base->return_value += 8;
         write(2, "Floating execption", 18);
     }
-    if (segfault == 11){
+    if (WTERMSIG(value) == 11){
         base->return_value += 11;
         write(2, "Segmentation fault", 18);
     }
-    child_display_sub(base, return_value, segfault, core_dump_or_not);
+    child_display_sub(base, base->return_value, value, core_dump_or_not);
     return OK;
 }
 

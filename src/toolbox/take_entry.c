@@ -15,17 +15,18 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-static void *modif_str(char *entry)
+static int modif_str(char *entry)
 {
     int i = 0;
 
     if (entry == NULL)
-        return NULL;
+        return -1;
     for (i = 0; entry[i] != '\0' && entry[i] != '\n'; i += 1) {
         if (entry[i] == '\t')
             entry[i] = ' ';
     }
     entry[i] = '\0';
+    return 0;
 }
 
 static int check_space(char *entry)
