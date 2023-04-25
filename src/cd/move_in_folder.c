@@ -45,7 +45,7 @@ int return_old_folder(base_minishell_t *base)
         write(2, ": No such file or directory.\n", 29);
         return KO;
     }
-    my_pwd = get_my_pwd();
+    my_pwd = pwd_function();
     if (last_pwd == NULL || my_pwd == NULL)
         return KO;
     if (return_old_foldre_sub(base, last_pwd, my_pwd) != OK)
