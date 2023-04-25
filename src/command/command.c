@@ -40,7 +40,7 @@ char **tab)
         return KO;
     duplicate_fonction(base, need_tab);
     if (base->yes_or_not == 1){
-        if (fonction_build(base, need_tab, tab) == OK){
+        if (fonction_build(base, tab) == OK){
             free_tab_int(need_tab);
             free_all(base, need_tab);
             exit(0);

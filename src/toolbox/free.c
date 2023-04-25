@@ -51,6 +51,7 @@ int free_str(all_str_t *all_str)
 {
     free(all_str->str);
     free(all_str);
+    return OK;
 }
 
 int free_all(base_minishell_t *base, need_tab_t *need_tab)
@@ -63,4 +64,5 @@ int free_all(base_minishell_t *base, need_tab_t *need_tab)
     free(need_tab);
     free(base->pwd);
     free(base);
+    return OK;
 }

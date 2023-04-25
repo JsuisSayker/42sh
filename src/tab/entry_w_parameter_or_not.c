@@ -17,7 +17,6 @@ static int entry_w_parameter(base_minishell_t *base, char *entry)
     int i;
     int tab_len;
     int nbr_parameter_str = 0;
-    char **tab = NULL;
     if (base == NULL || entry == NULL)
         return KO;
     base->command = my_splitstr(entry, ';');

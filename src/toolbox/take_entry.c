@@ -71,7 +71,7 @@ int append_command_to_history(base_minishell_t *base, char * str)
     return OK;
 }
 
-int take_entry(base_minishell_t *base, char **env, int *restart,
+int take_entry(base_minishell_t *base, int *restart,
 int *nbr_parameter)
 {
     *restart = 0;

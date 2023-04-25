@@ -49,4 +49,5 @@ int execution_fonction_build(base_minishell_t *base, char **tab, int n)
         if (setenv_exit(base, tab) != OK)
             base->return_value = 1;
     }
+    return OK;
 }

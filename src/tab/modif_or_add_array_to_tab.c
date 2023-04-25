@@ -43,7 +43,6 @@ int len_src)
     int entry_1 = my_strlen(all_str->str);
     int entry_2 = 0;
     int y = 0;
-    int x = 0;
     if (value != NULL)
         entry_2 = my_strlen(value);
     for (y = 0; src[y] != NULL; y += 1)

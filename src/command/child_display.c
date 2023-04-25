@@ -17,8 +17,7 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-static void wait_fonction(base_minishell_t *base, need_tab_t *need_tab,
-pid_t pid, int value)
+static void wait_fonction(need_tab_t *need_tab, pid_t pid, int value)
 {
     if (need_tab->tab_len < 1 || need_tab->tab_len == need_tab->tab_pos_x)
         waitpid(pid, &value, WUNTRACED);
@@ -44,7 +43,7 @@ int child_display(base_minishell_t *base, need_tab_t *need_tab,
 pid_t pid, int value)
 {
     close_fonction(base, need_tab);
-    wait_fonction(base, need_tab, pid, value);
+    wait_fonction(need_tab, pid, value);
     base->return_value = WEXITSTATUS(value);
     int core_dump_or_not = WCOREDUMP(value);
     if (WTERMSIG(value) == 8){

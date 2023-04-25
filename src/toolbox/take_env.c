@@ -52,7 +52,6 @@ char **take_path(char **env, char *str)
 static char **malloc_tab(char **env)
 {
     int count_word = 0;
-    int count_string = 0;
     char **tab = NULL;
     for (int i = 0; env[i] != NULL; i += 1)
         count_word += 1;

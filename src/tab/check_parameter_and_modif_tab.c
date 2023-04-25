@@ -33,6 +33,7 @@ static int check_parameter(all_str_t *all_str)
         if (check_parameter_sub(all_str, &x) != OK)
             return KO;
     }
+    return OK;
 }
 
 int check_parameter_and_modif_tab(base_minishell_t *base)

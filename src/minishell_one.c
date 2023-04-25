@@ -58,7 +58,7 @@ static int minishell_one_sub(base_minishell_t *base, char **env)
     while (base->exit != 1){
         if ((echo_or_not = starting()) == -1)
             return 1;
-        if (take_entry(base, env, &restart, &nbr_parameter) != OK)
+        if (take_entry(base, &restart, &nbr_parameter) != OK)
             break;
         if (restart == 1)
             continue;
@@ -69,7 +69,7 @@ static int minishell_one_sub(base_minishell_t *base, char **env)
     return base->return_value;
 }
 
-int minishell_one(int ac, char const *const *av, char **env)
+int minishell_one(char **env)
 {
     int return_value = 0;
     base_minishell_t *base = malloc(sizeof(base_minishell_t));

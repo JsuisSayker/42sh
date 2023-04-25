@@ -12,7 +12,7 @@
 #ifndef PROTO_H_
     #define PROTO_H_
 
-    int minishell_one(int ac, char const *const *av, char **env);
+    int minishell_one(char **env);
     char *pwd_function(void);
     int alias(base_minishell_t *base, char **tab);
     int history(base_minishell_t *base, char **tab);
@@ -28,7 +28,7 @@
     int count_parameter(char *str);
     int take_parameter(char *str);
     int starting(void);
-    int take_entry(base_minishell_t *base, char **env, int *restart,
+    int take_entry(base_minishell_t *base, int *restart,
     int *nbr_parameter);
     char *take_in_env(char **env, char *str);
     char **take_path(char **env, char *str);
@@ -62,8 +62,7 @@
     int duplicate_fonction(base_minishell_t *base, need_tab_t *need_tab);
     int check_fontion_build(base_minishell_t *base, need_tab_t *need_tab,
     char **tab_command);
-    int fonction_build(base_minishell_t *base, need_tab_t *need_tab,
-    char **tab_command);
+    int fonction_build(base_minishell_t *base, char **tab_command);
     int execution_fonction_build(base_minishell_t *base, char **tab, int n);
     int parameter_after_command(base_minishell_t *base, need_tab_t *need_tab);
     int check_command_and_execute(base_minishell_t *base, need_tab_t *need_tab);
