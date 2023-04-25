@@ -14,7 +14,7 @@
 
 static int check_before_after(char *str, int *x, int *args)
 {
-    for (int i = *x - 1; i > 0; i -= 1){
+    for (int i = *x - 1; i >= 0; i -= 1){
         if (str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ' '){
             *args += 1;
             break;
