@@ -78,8 +78,10 @@ int *nbr_parameter)
     char *entry = NULL;
     size_t len = 0;
     ssize_t nread;
-    if ((nread = getline(&entry, &len, stdin)) == KO)
+    if ((nread = getline(&entry, &len, stdin)) == KO) {
+        free(entry);
         return KO;
+    }
     if (append_command_to_history(base, entry) == KO)
         return KO;
     if (take_entry_sub(base, entry, nbr_parameter, restart) == KO)
