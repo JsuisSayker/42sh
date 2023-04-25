@@ -46,7 +46,7 @@ jobs:
 
       - name: Run coding-style
         run: check.sh . /tmp
-      
+
       - name: Display banana report
         run: cat /tmp/coding-style-reports.log
 
@@ -61,7 +61,7 @@ jobs:
         run: |
           NB_ERROR=$(cat coding-style-reports.log | wc -l)
           if [ $NB_ERROR -gt 0 ]; then
-            ERRORS=$(cat coding-style-reports.log);
+            ERRORS=$(cat /tmp/coding-style-reports.log);
             echo "Banana found $NB_ERROR error(s)"
             echo "$ERRORS"
             exit 1
