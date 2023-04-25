@@ -42,7 +42,7 @@ int child_display(base_minishell_t *base, need_tab_t *need_tab,
 pid_t pid, int value)
 {
     close_fonction(base, need_tab);
-    wait_fonction(base, need_tab, pid, &value);
+    wait_fonction(need_tab, pid, &value);
     if (WTERMSIG(value) == 8){
         base->return_value += 8;
         write(2, "Floating execption", 18);
