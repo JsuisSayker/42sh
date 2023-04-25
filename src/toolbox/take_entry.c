@@ -55,6 +55,7 @@ int *nbr_parameter, int *restart)
         if (entry_w_parameter_or_not(base, entry, nbr_parameter) != OK)
             *restart = 1;
     }
+    free(entry);
     return OK;
 }
 
@@ -82,6 +83,5 @@ int *nbr_parameter)
         return KO;
     if (take_entry_sub(base, entry, nbr_parameter, restart) == KO)
         return KO;
-    free(entry);
     return OK;
 }
