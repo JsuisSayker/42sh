@@ -20,14 +20,11 @@ int display_file(const char *filename)
         return -1;
     stream = fopen(filename, "r");
     if (stream == NULL) {
-        perror("fopen");
-        return -1;
+        return 0;
     }
-
     while ((nread = getline(&line, &len, stream)) != -1) {
         write(1, line, nread);
     }
-
     free(line);
     fclose(stream);
     return 0;
