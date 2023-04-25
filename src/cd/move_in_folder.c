@@ -12,20 +12,10 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-static char *get_my_pwd(void)
-{
-    char *buffer = NULL;
-     char *str = NULL;
-    char *value = getcwd(buffer, 0);
-    if (value == NULL)
-        return NULL;
-    return value;
-}
-
 int move_in_folder(base_minishell_t *base, char *direction)
 {
     int len_direction = my_strlen(direction);
-    char *old_pwd = get_my_pwd();
+    char *old_pwd = pwd_function();
     if (old_pwd == NULL)
         return KO;
     if (chdir(direction) == -1){
@@ -34,7 +24,7 @@ int move_in_folder(base_minishell_t *base, char *direction)
         free(old_pwd);
         return KO;
     } else {
-        char *pwd = get_my_pwd();
+        char *pwd = pwd_function();
         if (setenv_reprogramming(base, "PWD", pwd) != OK)
             return KO;
         if (setenv_reprogramming(base, "OLDPWD", old_pwd) != OK)
