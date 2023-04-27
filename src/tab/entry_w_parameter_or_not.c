@@ -44,8 +44,10 @@ int *nbr_parameter)
             return KO;
         return OK;
     }else {
-        if (entry_w_parameter(base, entry) != OK)
+        if (entry_w_parameter(base, entry) != OK){
+            base->return_value = 1;
             return KO;
+        }
     }
     return OK;
 }
