@@ -51,7 +51,6 @@ int *nbr_parameter, int *restart)
         *restart = 1;
         return OK;
     } else {
-        modif_str(entry);
         *nbr_parameter = take_parameter(entry);
         if (entry_w_parameter_or_not(base, entry, nbr_parameter) != OK)
             *restart = 1;
@@ -84,6 +83,7 @@ int *nbr_parameter)
     }
     if (append_command_to_history(base, entry) == KO)
         return KO;
+    modif_str(entry);
     if (take_entry_sub(base, entry, nbr_parameter, restart) == KO)
         return KO;
     return OK;
