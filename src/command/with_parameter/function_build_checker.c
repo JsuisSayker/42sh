@@ -45,9 +45,9 @@ static int parameter_after_command(base_minishell_t *base, need_tab_t *need_tab)
 static int check_function_build_ter(base_minishell_t *base, char **tab_command)
 {
     int len_tab = 0;
-    if (my_strncmp("exit", tab_command[0], 4) == OK){
+    if (my_strcmp("exit", tab_command[0]) == OK && tab_command[1] == NULL){
         base->exit = 1;
-        if (write(1, "exit\n", 6) == -1)
+        if (write(1, "exit\n", 5) == -1)
             return KO;
         return OK;
     }
