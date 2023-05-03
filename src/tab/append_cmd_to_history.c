@@ -77,6 +77,8 @@ int append_cmd_to_history(const char *filename, char *str)
 {
     if (filename == NULL)
         return -1;
+    if (strlen(str) == 0)
+        return 0;
     char *current_time = get_actual_time();
     char **str_split_time = my_splitstr(current_time, ' ');
     char **str_split_hours = my_splitstr(str_split_time[3], ':');
@@ -89,5 +91,6 @@ int append_cmd_to_history(const char *filename, char *str)
     }
     free_tab_char(str_split_hours);
     free_tab_char(str_split_time);
+    free(str_file_in_memory);
     return value_return;
 }
