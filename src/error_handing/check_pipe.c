@@ -49,8 +49,10 @@ static int check_before_and_after(char *str, int *x, int nbr_pipe)
 static int count_pipe(all_str_t *all_str, int *x)
 {
     int nbr_pipe = 0;
-    for (int i = *x; all_str->str[i] != '\0'; i += 1){
-        if (all_str->str[i] == '|')
+    for (int i = *x; all_str->str[i] != '\0'; i += 1) {
+        if ((all_str->str[i] == '|' && all_str->str[i + 1] == '|' &&
+        all_str->str[i + 2] == '|') || (all_str->str[i] == '|' &&
+        all_str->str[i + 1] == ' ' && all_str->str[i + 2] == '|'))
             nbr_pipe += 1;
         else
             return nbr_pipe;
@@ -61,7 +63,7 @@ static int count_pipe(all_str_t *all_str, int *x)
 int check_pipe(all_str_t *all_str, int *x)
 {
     int nbr_pipe = count_pipe(all_str, x);
-    if (nbr_pipe > 2){
+    if (nbr_pipe >= 1) {
         if (write(2, "Invalid null command.\n", 22) == -1)
             return 1;
         return 1;
