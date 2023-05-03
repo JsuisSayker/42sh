@@ -26,6 +26,8 @@ SRC_TAB		=	reduce_tab.c					\
 				entry_w_parameter_or_not.c		\
 				append_str_to_file.c			\
 				display_file.c					\
+				append_cmd_to_history.c\
+				my_load_file_in_memory.c\
 
 SRC_COMMAND	=	command.c									\
 				command_checker.c							\

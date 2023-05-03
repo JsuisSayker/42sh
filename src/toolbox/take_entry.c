@@ -64,7 +64,7 @@ int append_command_to_history(base_minishell_t *base, char * str)
     if (str == NULL)
         return KO;
     char *tmp_pwd = my_strcat(base->pwd, "/.history.txt");
-    if (append_str_to_file(tmp_pwd, str) == KO)
+    if (append_cmd_to_history(tmp_pwd, str) == KO)
         return KO;
     free(tmp_pwd);
     return OK;
@@ -81,6 +81,8 @@ int *nbr_parameter)
         free(entry);
         return KO;
     }
+    if (entry[my_strlen(entry) - 1] == '\n')
+        entry[my_strlen(entry) - 1] = '\0';
     if (append_command_to_history(base, entry) == KO)
         return KO;
     modif_str(entry);

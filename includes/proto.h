@@ -46,6 +46,8 @@
     int check_parameter_and_modif_tab(base_minishell_t *base);
     int entry_w_parameter_or_not(base_minishell_t *base, char *entry,
     int *nbr_parameter);
+    char *my_load_file_in_memory(const char *filename);
+    int append_cmd_to_history(const char *filename, char *str);
     int append_str_to_file(const char *filename, char *str);
     int display_file(const char *filename);
 
