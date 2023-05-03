@@ -30,6 +30,8 @@ int *reprograming_command)
     base->command[0][4] == '\0') {
         *reprograming_command = 1;
         base->exit = 1;
+        if (write(1, "exit\n", 6) == -1)
+            return KO;
         return OK;
     }
     return OK;
