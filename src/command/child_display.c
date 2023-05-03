@@ -27,15 +27,10 @@ static void wait_function(need_tab_t *need_tab, pid_t pid, int *value)
 
 static void child_display_sub(base_minishell_t *base, int value)
 {
-    if (WCOREDUMP(value) == 128){
-        base->return_value += 128;
+    if (WCOREDUMP(value) == 128)
         write(2, " (core dumped)", 14);
-    }
-    if (WEXITSTATUS(value) == 1)
-        base->return_value += 1;
-    if (WTERMSIG(value) == 8 || WTERMSIG(value) == 11){
+    if (WTERMSIG(value) == 8 || WTERMSIG(value) == 11)
         write(1, "\n", 1);
-    }
 }
 
 int child_display(base_minishell_t *base, need_tab_t *need_tab,
@@ -43,14 +38,12 @@ pid_t pid, int value)
 {
     close_function(base, need_tab);
     wait_function(need_tab, pid, &value);
-    if (WTERMSIG(value) == 8){
-        base->return_value += 8;
+    base->return_value = WEXITSTATUS(value) + WTERMSIG(value) +
+    WCOREDUMP(value);
+    if (WTERMSIG(value) == 8)
         write(2, "Floating execption", 18);
-    }
-    if (WTERMSIG(value) == 11){
-        base->return_value += 11;
+    if (WTERMSIG(value) == 11)
         write(2, "Segmentation fault", 18);
-    }
     child_display_sub(base, value);
     return OK;
 }

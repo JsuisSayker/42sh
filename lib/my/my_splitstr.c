@@ -12,6 +12,8 @@
 
 static int change_index_when_inhibitor(char const *str, int j, int i)
 {
+    if (str == NULL)
+        return -1;
     if (str[j + i] == '\\' && str[j + i + 1] == ' ')
         j += 2;
     return j;
@@ -47,6 +49,8 @@ static char **malloc_tab(char const *str, int separator, int len_word)
         for (j = i; j < len_word && str[j] != '\0' && str[j] != separator; j++)
             j = change_index_when_inhibitor(str, j, 0);
         i = j;
+        if (i == -1)
+            return NULL;
     }
     tab = malloc(sizeof(char *) * (count_word + 1));
     if (tab == NULL)
