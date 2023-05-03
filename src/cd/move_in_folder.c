@@ -20,7 +20,7 @@ int move_in_folder(base_minishell_t *base, char *direction)
         return KO;
     if (chdir(direction) == -1){
         write(2, direction, len_direction);
-        write(2, ": no such file or directory\n", 28);
+        write(2, ": Not a directory.\n", 19);
         free(old_pwd);
         return KO;
     } else {
@@ -42,7 +42,7 @@ int return_old_folder(base_minishell_t *base)
     if (base == NULL)
         return KO;
     if ((last_pwd = take_in_env(base->env, "OLDPWD=")) == NULL){
-        write(2, ": No such file or directory.\n", 29);
+        write(2, ": Not a directory.\n", 19);
         return KO;
     }
     my_pwd = pwd_function();
