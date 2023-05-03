@@ -20,6 +20,7 @@
         /* toolbox */
     int free_all(base_minishell_t *base, need_tab_t *need_tab);
     int free_tab_int(need_tab_t *need_tab);
+    char *my_load_fd_in_memory(int fd);
     int free_str(all_str_t *all_str);
     int free_big_tab(char ***tab);
     int free_tab_char(char **tab);
@@ -56,15 +57,14 @@
     int check_pipe(all_str_t *all_str, int *x);
 
         /* command */
-    void close_fonction(base_minishell_t *base, need_tab_t *need_tab);
+    void close_function(base_minishell_t *base, need_tab_t *need_tab);
+    int echo_command(base_minishell_t *base, char **command);
     int child_display_parameter(base_minishell_t *base, need_tab_t *need_tab);
     int command_with_parameter(base_minishell_t *base, need_tab_t *need_tab);
-    int duplicate_fonction(base_minishell_t *base, need_tab_t *need_tab);
-    int check_fontion_build(base_minishell_t *base, need_tab_t *need_tab,
+    int duplicate_function(base_minishell_t *base, need_tab_t *need_tab);
+    int check_function_build(base_minishell_t *base, need_tab_t *need_tab,
     char **tab_command);
-    int fonction_build(base_minishell_t *base, char **tab_command);
-    int execution_fonction_build(base_minishell_t *base, char **tab, int n);
-    int parameter_after_command(base_minishell_t *base, need_tab_t *need_tab);
+    int function_build(base_minishell_t *base, char **tab_command);
     int check_command_and_execute(base_minishell_t *base, need_tab_t *need_tab);
     int command(base_minishell_t *base, need_tab_t *need_tab, char **tab);
     int unsetenv_exit(base_minishell_t *base, char **tab);
@@ -76,6 +76,7 @@
     pid_t pid, int value);
     int unsetenv_reprogramming(base_minishell_t *base, char *str);
     char *string_command(char *path, char *entry);
+    int echo_command(base_minishell_t *base, char **command);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);

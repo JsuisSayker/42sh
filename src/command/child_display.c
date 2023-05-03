@@ -17,7 +17,7 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-static void wait_fonction(need_tab_t *need_tab, pid_t pid, int *value)
+static void wait_function(need_tab_t *need_tab, pid_t pid, int *value)
 {
     if (need_tab->tab_len < 1 || need_tab->tab_len == need_tab->tab_pos_x)
         waitpid(pid, value, WUNTRACED);
@@ -41,8 +41,8 @@ static void child_display_sub(base_minishell_t *base, int value)
 int child_display(base_minishell_t *base, need_tab_t *need_tab,
 pid_t pid, int value)
 {
-    close_fonction(base, need_tab);
-    wait_fonction(need_tab, pid, &value);
+    close_function(base, need_tab);
+    wait_function(need_tab, pid, &value);
     if (WTERMSIG(value) == 8){
         base->return_value += 8;
         write(2, "Floating execption", 18);
@@ -62,7 +62,7 @@ int child_display_parameter(base_minishell_t *base, need_tab_t *need_tab)
         return KO;
     tab_command = my_splitstr(base->p_command[need_tab->tab_pos_y]
     [need_tab->tab_pos_x], ' ');
-    if (check_fontion_build(base, need_tab, tab_command) == OK)
+    if (check_function_build(base, need_tab, tab_command) == OK)
         return OK;
     if (command(base, need_tab, tab_command) != OK)
         return KO;

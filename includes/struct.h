@@ -36,7 +36,7 @@
         int len_str;
     } all_str_t;
 
-    struct fonction {
+    struct function {
         char *str;
         int (*proto)(base_minishell_t *, char **);
     };

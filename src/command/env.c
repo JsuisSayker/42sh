@@ -14,16 +14,16 @@
 int print_env(char **env)
 {
     if (env == NULL)
-        return KO;
+        return 1;
     int len = 0;
     for (int y = 0; env[y] != NULL; y += 1){
         len = my_strlen(env[y]);
         if (len == KO)
-            return KO;
+            return 1;
         if (write(1, env[y], len) == KO)
-            return KO;
+            return 1;
         if (write(1, "\n", 1) == KO)
-            return KO;
+            return 1;
     }
     return OK;
 }
@@ -31,7 +31,7 @@ int print_env(char **env)
 int unsetenv_exit(base_minishell_t *base, char **tab)
 {
     if (base == NULL)
-        return KO;
+        return 1;
     int i = 0;
     for (i = 0; tab[i] != NULL; i += 1);
     if (i == 1){
@@ -40,7 +40,7 @@ int unsetenv_exit(base_minishell_t *base, char **tab)
     }
     for (int y = 1; tab[y] != NULL; y += 1){
         if (unsetenv_reprogramming(base, tab[y]) != OK)
-            return OK;
+            return 1;
     }
     return OK;
 }
@@ -48,7 +48,7 @@ int unsetenv_exit(base_minishell_t *base, char **tab)
 int setenv_exit(base_minishell_t *base, char **tab)
 {
     if (base == NULL)
-        return KO;
+        return 1;
     int i = 0;
     for (i = 0; tab[i] != NULL; i += 1);
     if (i == 1){
@@ -63,8 +63,7 @@ int setenv_exit(base_minishell_t *base, char **tab)
         , 60);
         return 1;
     }
-    if (setenv_reprogramming(base, tab[1], tab[2])
-    != OK)
-        return OK;
+    if (setenv_reprogramming(base, tab[1], tab[2]) != OK)
+        return 1;
     return OK;
 }

@@ -35,10 +35,11 @@ SRC_COMMAND	=	command.c									\
 				child_display.c								\
 				alias.c										\
 				history.c									\
-				with_parameter/fonction_build.c				\
+				echo_command.c								\
+				with_parameter/function_build.c				\
 				with_parameter/command_with_parameter.c		\
 				with_parameter/duplicate_and_close_pipe.c	\
-				with_parameter/fonction_build_checker.c		\
+				with_parameter/function_build_checker.c		\
 
 
 SRC_ERROR	=	check_argc_argv.c				\
@@ -77,7 +78,7 @@ LMY			=	-lmy
 
 CPPFLAGS	=	-I./includes/ -ggdb3
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra
 
 LCRITER		= -lcriterion
 

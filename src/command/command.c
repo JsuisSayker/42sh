@@ -38,9 +38,9 @@ char **tab)
 {
     if (base == NULL || need_tab == NULL)
         return KO;
-    duplicate_fonction(base, need_tab);
+    duplicate_function(base, need_tab);
     if (base->yes_or_not == 1){
-        if (fonction_build(base, tab) == OK){
+        if (function_build(base, tab) == OK){
             free_tab_int(need_tab);
             free_all(base, need_tab);
             exit(0);

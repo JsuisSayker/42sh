@@ -12,10 +12,11 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-const struct fonction OPERATORS_FUNCS[] = {
-    {"setenv", &setenv_exit},
+const struct function OPERATORS_FUNCS[] = {
     {"unsetenv", &unsetenv_exit},
     {"cd", &cd_reprogramming},
+    {"setenv", &setenv_exit},
+    {"echo", &echo_command},
     {"alias", &alias},
     {"!", &history},
     {"NULL", NULL}
