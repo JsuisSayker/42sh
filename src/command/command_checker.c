@@ -26,10 +26,12 @@ const struct function OPERATORS_FUNCS[] = {
 static int check_reprograming_command_sub(base_minishell_t *base,
 int *reprograming_command)
 {
-    if (my_strncmp("exit", base->command[0], 4) == OK &&
+    if (my_strcmp("exit", base->command[0]) == OK &&
     base->command[0][4] == '\0') {
         *reprograming_command = 1;
         base->exit = 1;
+        if (write(1, "exit\n", 5) == -1)
+            return KO;
         return OK;
     }
     return OK;

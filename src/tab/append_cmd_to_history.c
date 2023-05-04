@@ -39,13 +39,13 @@ char *str, char **str_split_hours)
     return 1;
 }
 
-int get_nb_cmd(char **str_split_text, char **str_split_line, int *nb_toto,
+int get_nb_cmd(char **str_split_text, char **str_split_line, int *nb_end,
 int i)
 {
     if (str_split_text[i + 1] == NULL){
         int j = 0;
         for (; str_split_line[0][j] == ' '; j += 1);
-        (*nb_toto) = atoi(&(str_split_line[0][j]));
+        (*nb_end) = atoi(&(str_split_line[0][j]));
     }
     return 0;
 }
@@ -55,7 +55,7 @@ char *str_file_in_memory, char **str_split_hours)
 {
     FILE *fd;
     int i = 0;
-    int nb_toto = 0;
+    int nb_end = 0;
     fd = fopen(filename, "w+");
     char **str_split_text = my_splitstr(str_file_in_memory, '\n');
     for (; str_split_text[i] != NULL; i += 1) {
@@ -63,11 +63,11 @@ char *str_file_in_memory, char **str_split_hours)
         my_splitstr(str_split_text[i], '\t');
         if (strcmp(str_split_line[2], str) != 0)
             fprintf(fd, "%s\n", str_split_text[i]);
-        get_nb_cmd(str_split_text, str_split_line, &nb_toto, i);
+        get_nb_cmd(str_split_text, str_split_line, &nb_end, i);
         free_tab_char(str_split_line);
     }
     free_tab_char(str_split_text);
-    fprintf(fd, "%6d\t%2s:%s\t%s\n", nb_toto + 1, str_split_hours[0],
+    fprintf(fd, "%6d\t%2s:%s\t%s\n", nb_end + 1, str_split_hours[0],
     str_split_hours[1], str);
     fclose(fd);
     return 0;
@@ -77,6 +77,8 @@ int append_cmd_to_history(const char *filename, char *str)
 {
     if (filename == NULL)
         return -1;
+    if (strlen(str) == 0)
+        return 0;
     char *current_time = get_actual_time();
     char **str_split_time = my_splitstr(current_time, ' ');
     char **str_split_hours = my_splitstr(str_split_time[3], ':');
@@ -89,5 +91,6 @@ int append_cmd_to_history(const char *filename, char *str)
     }
     free_tab_char(str_split_hours);
     free_tab_char(str_split_time);
+    free(str_file_in_memory);
     return value_return;
 }

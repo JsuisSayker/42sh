@@ -7,6 +7,10 @@
 *.editorconfig
 *.pdf
 
+.history.txt
+.alias.txt
+lauch_tester.sh
+
 save*
 unit*
 vgcore*
