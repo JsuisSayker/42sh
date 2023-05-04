@@ -17,12 +17,12 @@ int error_message_redirector(args_s_t *args)
             return 1;
         return 1;
     }
-    if (args->after == 1){
+    if (args->after != 1){
         if (write(2, "Missing name for redirect.\n", 27) == -1)
             return 1;
         return 1;
     }
-    if (args->before == 1){
+    if (args->before != 1){
         if (write(2, "Invalid null command.\n", 22) == -1)
             return 1;
         return 1;

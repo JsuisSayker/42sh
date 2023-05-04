@@ -46,7 +46,7 @@ int nbr_redirect)
         if (str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ' '){
             args->before = 1;
             break;
-        } else
+        } else if (str[i] == '|' && str[i] == '<' && str[i] == '>')
             break;
     }
     if (0 == *x)
@@ -62,9 +62,11 @@ int nbr_redirect)
     for (int i = (*x + nbr_redirect); all_str->str[i] != '\0'; i += 1){
         if (all_str->str[i] != '|' && all_str->str[i] != '<' &&
         all_str->str[i] != '>' && all_str->str[i] != ' '){
+            printf("str -> {%c}\n", all_str->str[i]);
             args->after = 1;
             break;
-        } else
+        } else if (all_str->str[i] == '|' && all_str->str[i] == '<' &&
+        all_str->str[i] == '>')
             break;
     }
     if ((all_str->len_str) == (*x + nbr_redirect))
