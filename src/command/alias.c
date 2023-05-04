@@ -6,20 +6,145 @@
 */
 
 #include <unistd.h>
-
+#include <string.h>
+#include <stdio.h>
 #include "macro.h"
 #include "proto.h"
 #include "proto_lib.h"
 
-static int append_parameters_in_file(char *tmp_pwd, char **tab)
+int append_alias_mutiple_cmd(FILE *fd, int width, char **tab)
 {
-    char *line = my_strcat(tab[1], " ");
-    char *line_final = my_strcat(line, tab[2]);
+    fprintf(fd, "%-*s (", width, tab[1]);
+    for (int i = 2; tab[i] != NULL; i += 1) {
+        fprintf(fd, "%s", tab[i]);
+        if (tab[i + 1] != NULL)
+            fprintf(fd, " ");
+    }
+    fprintf(fd, ")\n");
+    return OK;
+}
+
+int  print_table(int len_tab, FILE *fd, char **tab)
+{
+    int width = 8;
+    int len_word = my_strlen(tab[1]);
+    for (; width < len_word; width += 8);
+    if (len_tab == 3)
+        fprintf(fd, "%-*s %s\n", width, tab[1], tab[2]);
+    else {
+        append_alias_mutiple_cmd(fd, width, tab);
+    }
+    return 0;
+}
+
+int special_case(char **str_split_text, char **tab, FILE *fd)
+{
+    char **str_split_line = my_splitstr(str_split_text[0], ' ');
+    if (strcmp(str_split_line[0], tab[1]) == 0) {
+        print_table(my_tablen(tab), fd, tab);
+        free_tab_char(str_split_line);
+        return 0;
+    }
+    free_tab_char(str_split_line);
+    if (strcmp(str_split_text[0], tab[1]) < 0) {
+        fprintf(fd, "%s\n", str_split_text[0]);
+        print_table(my_tablen(tab), fd, tab);
+        return 0;
+    }
+    print_table(my_tablen(tab), fd, tab);
+    fprintf(fd, "%s\n", str_split_text[0]);
+    return 0;
+}
+
+int place_between_exiting_alias(char **str_split_text, int i, char **tab,
+FILE *fd)
+{
+    if (str_split_text[i + 1] != NULL){
+        if ((strcmp(str_split_text[i], tab[1]) > 0) &&
+        (strcmp(str_split_text[i + 1], tab[1]) < 0)) {
+            print_table(my_tablen(tab), fd, tab);
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int already_exist(char *key_variable, char **tab, FILE *fd, int *is_print)
+{
+    if (strcmp(key_variable, tab[1]) == 0 && *is_print == 0) {
+        print_table(my_tablen(tab), fd, tab);
+        *is_print = 1;
+    }
+    return 0;
+}
+
+int filter_and_print_text(char **str_split_text, char **tab, FILE *fd)
+{
+    int is_print = 0;
+    if (my_tablen(str_split_text) == 1)
+        return special_case(str_split_text, tab, fd);
+    for (int i = 0; str_split_text[i] != NULL; i += 1) {
+        char **str_split_line = my_splitstr(str_split_text[i], ' ');
+        if (place_between_exiting_alias(str_split_text, i, tab, fd) == 1)
+            is_print = 1;
+        already_exist(str_split_line[0], tab ,fd, &is_print);
+        if (strcmp(str_split_text[i], tab[1]) > 0 && is_print == 0) {
+            print_table(my_tablen(tab), fd, tab);
+            is_print = 1;
+        }
+        if (strcmp(str_split_line[0], tab[1]) != 0)
+            fprintf(fd, "%s\n", str_split_text[i]);
+        free_tab_char(str_split_line);
+    }
+    if (is_print == 0)
+        print_table(my_tablen(tab), fd, tab);
+    return OK;
+}
+
+static int append_alias(char const *filename, char **tab)
+{
+    char *str_file_in_memory = my_load_file_in_memory(filename);
+    if (str_file_in_memory == NULL){
+        FILE *fd = fopen(filename, "w+");
+        print_table(my_tablen(tab), fd, tab);
+        fclose(fd);
+    } else {
+        FILE *fd = fopen(filename, "w+");
+        char **str_split_text = my_splitstr(str_file_in_memory, '\n');
+        filter_and_print_text(str_split_text, tab, fd);
+        free_tab_char(str_split_text);
+        fclose(fd);
+    }
+    free(str_file_in_memory);
+    return OK;
+}
+
+int display_alias_value_in_alias_sub(char **str_split)
+{
+    for (int i = 1; str_split[i] != NULL; i += 1){
+        write(1, str_split[i], my_strlen(str_split[i]));
+        if (str_split[i + 1] != NULL)
+            write(1, " ", 1);
+    }
+    return OK;
+}
+
+static int display_alias_value_in_alias(char *filemane, char *value)
+{
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t nread;
+    FILE *stream = fopen(filemane, "a+");
+
+    while ((nread = getline(&line, &len, stream)) != -1) {
+        char **str_split = my_splitstr(line, ' ');
+        if (strcmp(str_split[0], value) == 0){
+            display_alias_value_in_alias_sub(str_split);
+        }
+        free_tab_char(str_split);
+    }
+    fclose(stream);
     free(line);
-    char *line_final_aze = my_strcat(line_final, "\n");
-    free(line_final);
-    append_str_to_file(tmp_pwd, line_final_aze);
-    free(tmp_pwd);
     return OK;
 }
 
@@ -32,15 +157,15 @@ int alias(base_minishell_t *base, char **tab)
         return KO;
     switch (my_tablen(tab)){
         case 1:
-        case 2:
             display_file(tmp_pwd);
-            free(tmp_pwd);
             break;
-        case 3:
-            append_parameters_in_file(tmp_pwd, tab);
+        case 2:
+            display_alias_value_in_alias(tmp_pwd, tab[1]);
             break;
         default:
+            append_alias(tmp_pwd, tab);
             break;
     }
+    free(tmp_pwd);
     return OK;
 }

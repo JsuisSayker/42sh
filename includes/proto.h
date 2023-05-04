@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "struct.h"
 #include "struct_args_for_entry.h"
 
@@ -79,6 +80,11 @@
     int unsetenv_reprogramming(base_minishell_t *base, char *str);
     char *string_command(char *path, char *entry);
     int echo_command(base_minishell_t *base, char **command);
+    int print_table(int len_tab, FILE *fd, char **tab);
+    int special_case(char **str_split_text, char **tab, FILE *fd);
+    int place_between_exiting_alias(char **str_split_text, int i, char **tab,\
+    FILE *fd);
+    int already_exist(char *key_variable, char **tab, FILE *fd, int *is_print);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);
