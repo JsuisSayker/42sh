@@ -36,6 +36,7 @@ SRC_COMMAND	=	command.c									\
 				string_command.c							\
 				child_display.c								\
 				alias.c										\
+				alias_sub.c									\
 				history.c									\
 				echo_command.c								\
 				with_parameter/function_build.c				\
