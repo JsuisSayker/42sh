@@ -75,4 +75,5 @@ int already_exist(char *key_variable, char **tab, FILE *fd, int *is_print)
         print_table(my_tablen(tab), fd, tab);
         *is_print = 1;
     }
+    return 0;
 }

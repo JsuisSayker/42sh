@@ -35,6 +35,9 @@
     char *take_in_env(char **env, char *str);
     char **take_path(char **env, char *str);
     char **take_env(char **env);
+    int find_alias_of_the_command(char **str_split_line, char **str_plit);
+    int replace_alias_with_command(base_minishell_t *base, char **entry);
+    int replace_alias_with_parameter(base_minishell_t *base);
 
         /* tab */
     char **reduce_tab(char **src, char *str);
