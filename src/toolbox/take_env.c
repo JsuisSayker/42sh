@@ -20,7 +20,7 @@ static char *go_to_variable(char **env, char *str)
     if ((len_str = my_strlen(str)) == KO)
         return NULL;
     for (int y = 0; env[y] != NULL; y += 1){
-        if (my_strcmp(str, env[y]) == 0)
+        if (my_strncmp(str, env[y], 5) == 0)
             return &env[y][len_str];
     }
     return NULL;

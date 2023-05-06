@@ -18,7 +18,7 @@
     int history(base_minishell_t *base, char **tab);
 
         /* toolbox */
-    int free_all(base_minishell_t *base, need_tab_t *need_tab);
+    int free_all(base_minishell_t *base, need_tab_t *need_tab, char **tab);
     int free_tab_int(need_tab_t *need_tab);
     char *my_load_fd_in_memory(int fd);
     int free_str(all_str_t *all_str);
@@ -79,6 +79,8 @@
     int unsetenv_reprogramming(base_minishell_t *base, char *str);
     char *string_command(char *path, char *entry);
     int echo_command(base_minishell_t *base, char **command);
+    int file_function(base_minishell_t *base, need_tab_t *need_tab,
+    char **command);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);

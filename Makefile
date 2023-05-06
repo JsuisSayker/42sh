@@ -12,11 +12,12 @@ SRC			=	main.c					\
 				cd/cd.c					\
 				pwd_function.c			\
 
-SRC_TOOLBOX	=	take_env.c		\
-				take_entry.c	\
-				starting.c		\
-				parameter.c		\
-				free.c			\
+SRC_TOOLBOX	=	take_env.c				\
+				take_entry.c			\
+				starting.c				\
+				parameter.c				\
+				free.c					\
+				my_load_fd_in_memory.c	\
 
 SRC_TAB		=	reduce_tab.c					\
 				enlarge_tab.c					\
@@ -38,6 +39,7 @@ SRC_COMMAND	=	command.c									\
 				alias.c										\
 				history.c									\
 				echo_command.c								\
+				redirector.c								\
 				with_parameter/function_build.c				\
 				with_parameter/command_with_parameter.c		\
 				with_parameter/duplicate_and_close_pipe.c	\

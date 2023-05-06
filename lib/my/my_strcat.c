@@ -12,11 +12,13 @@ int my_strlen(char const *str);
 
 char *my_strcat(char *dest, char const *src)
 {
-    if (dest == NULL || src == NULL)
+    if (src == NULL)
         return NULL;
-    int len_dest = my_strlen(dest);
-    int len_src = my_strlen(dest);
+    int len_dest = 0;
+    int len_src = my_strlen(src);
     int count = 0;
+    if (dest != NULL)
+        len_dest = my_strlen(dest);
     if (len_dest == -1 || len_src == -1)
         return NULL;
     char *tmp = malloc(sizeof(char) * (len_dest + len_src) + 1);

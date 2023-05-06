@@ -25,7 +25,7 @@ static void wait_function(need_tab_t *need_tab, pid_t pid, int *value)
         waitpid(pid, value, WUNTRACED | WNOHANG);
 }
 
-static void child_display_sub(base_minishell_t *base, int value)
+static void child_display_sub(int value)
 {
     if (WCOREDUMP(value) == 128)
         write(2, " (core dumped)", 14);
@@ -44,7 +44,7 @@ pid_t pid, int value)
         write(2, "Floating execption", 18);
     if (WTERMSIG(value) == 11)
         write(2, "Segmentation fault", 18);
-    child_display_sub(base, value);
+    child_display_sub(value);
     return OK;
 }
 

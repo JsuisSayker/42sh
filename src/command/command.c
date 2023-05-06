@@ -75,7 +75,7 @@ static void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
     display_error_command(tab[0]);
     if (base->yes_or_not == 1)
         free_tab_int(need_tab);
-    free_all(base, need_tab);
+    free_all(base, need_tab, tab);
     if (errno == 8)
         exit(126);
 }
@@ -89,7 +89,12 @@ char **tab)
     if (base->yes_or_not == 1){
         if (function_build(base, tab) == OK){
             free_tab_int(need_tab);
-            free_all(base, need_tab);
+            free_all(base, need_tab, tab);
+            exit(0);
+        }
+        if (file_function(base, need_tab, tab) == OK){
+            free_tab_int(need_tab);
+            free_all(base, need_tab, tab);
             exit(0);
         }
     }

@@ -62,7 +62,6 @@ int nbr_redirect)
     for (int i = (*x + nbr_redirect); all_str->str[i] != '\0'; i += 1){
         if (all_str->str[i] != '|' && all_str->str[i] != '<' &&
         all_str->str[i] != '>' && all_str->str[i] != ' '){
-            printf("str -> {%c}\n", all_str->str[i]);
             args->after = 1;
             break;
         } else if (all_str->str[i] == '|' && all_str->str[i] == '<' &&

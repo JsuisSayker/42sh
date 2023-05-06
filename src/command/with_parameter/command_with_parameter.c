@@ -40,10 +40,13 @@ static int malloc_pipe(need_tab_t *need_tab)
 {
     if (need_tab == NULL)
         return KO;
+    printf("-----------------------------------------------\n");
     for (int x = 0; x < need_tab->nbr_parameter; x ++){
         if (pipe(need_tab->fd[x]) != OK)
             return KO;
+        printf("fd pipe -> [%d]\n", x);
         }
+    printf("-----------------------------------------------\n");
     return OK;
 }
 
@@ -78,10 +81,10 @@ int command_with_parameter(base_minishell_t *base, need_tab_t *need_tab)
         return KO;
     for (int y = 0; base->p_command[y] != NULL; y += 1){
         base->yes_or_not = 1;
+        base->return_value = 0;
         need_tab->tab_pos_y = y;
         if (initialisation_value(base, need_tab) != OK)
             return KO;
-        base->return_value = 0;
         if (command_with_parameter_sub(base, need_tab) != OK)
             return KO;
     }
