@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "struct.h"
 #include "struct_args_for_entry.h"
 
@@ -34,6 +35,9 @@
     char *take_in_env(char **env, char *str);
     char **take_path(char **env, char *str);
     char **take_env(char **env);
+    int find_alias_of_the_command(char **str_split_line, char **str_plit);
+    int replace_alias_with_command(base_minishell_t *base, char **entry);
+    int replace_alias_with_parameter(base_minishell_t *base);
 
         /* tab */
     char **reduce_tab(char **src, char *str);
@@ -81,6 +85,11 @@
     int echo_command(base_minishell_t *base, char **command);
     int file_function(base_minishell_t *base, need_tab_t *need_tab,
     char **command);
+    int print_table(int len_tab, FILE *fd, char **tab);
+    int special_case(char **str_split_text, char **tab, FILE *fd);
+    int place_between_exiting_alias(char **str_split_text, int i, char **tab,\
+    FILE *fd);
+    int already_exist(char *key_variable, char **tab, FILE *fd, int *is_print);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);
