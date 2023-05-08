@@ -49,6 +49,25 @@ char **command)
     return 1;
 }
 
+static int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
+char **tab_command, int *x)
+{
+    int fd = 0;
+    if (strcmp(">", base->p_command[need_tab->tab_pos_y]\
+    [need_tab->tab_pos_x + 1]) == OK){
+        if ((fd = open(base->p_command[need_tab->tab_pos_y]\
+        [need_tab->tab_pos_x + 2], O_RDONLY)) == -1)
+            return KO;
+        dup2(fd, STDIN_FILENO);
+        base->yes_or_not = 0;
+        if (command(base, need_tab, tab_command) != OK)
+            return KO;
+        *x += 2;
+        return OK;
+    }
+    return OK;
+}
+
 int file_function(base_minishell_t *base, need_tab_t *need_tab, int *x)
 {
     char **command = NULL;
@@ -59,6 +78,12 @@ int file_function(base_minishell_t *base, need_tab_t *need_tab, int *x)
     if (need_tab->redirect_arg == 2){
         need_tab->redirect_arg = 0;
         if (right_redirector(base, need_tab, command) == OK){
+            return OK;
+        }
+    }
+    if (need_tab->redirect_arg == 1){
+        need_tab->redirect_arg = 0;
+        if (left_redirector(base, need_tab, command, x) == OK){
             return OK;
         }
     }

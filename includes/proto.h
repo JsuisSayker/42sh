@@ -66,7 +66,7 @@
 
         /* command */
     void close_function(base_minishell_t *base, need_tab_t *need_tab);
-    int check_left_redirector(char *str, need_tab_t *need_tab);
+    int check_left_redirector(base_minishell_t *base, need_tab_t *need_tab);
     int echo_command(base_minishell_t *base, char **command);
     int child_display_parameter(base_minishell_t *base, need_tab_t *need_tab);
     int command_with_parameter(base_minishell_t *base, need_tab_t *need_tab);
