@@ -46,7 +46,8 @@ int nbr_redirect)
         if (str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ' '){
             args->before = 1;
             break;
-        } else if (str[i] == '|' && str[i] == '<' && str[i] == '>')
+        }
+        if (str[i] == '|' && str[i] == '<' && str[i] == '>')
             break;
     }
     if (0 == *x)
@@ -64,7 +65,8 @@ int nbr_redirect)
         all_str->str[i] != '>' && all_str->str[i] != ' '){
             args->after = 1;
             break;
-        } else if (all_str->str[i] == '|' && all_str->str[i] == '<' &&
+        }
+        if (all_str->str[i] == '|' && all_str->str[i] == '<' &&
         all_str->str[i] == '>')
             break;
     }

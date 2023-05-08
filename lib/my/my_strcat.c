@@ -12,7 +12,7 @@ int my_strlen(char const *str);
 
 char *my_strcat(char *dest, char const *src)
 {
-    if (src == NULL)
+    if (src == NULL || !dest)
         return NULL;
     int len_dest = 0;
     int len_src = my_strlen(src);

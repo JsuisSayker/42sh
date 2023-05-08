@@ -92,11 +92,6 @@ char **tab)
             free_all(base, need_tab, tab);
             exit(0);
         }
-        if (file_function(base, need_tab, tab) == OK){
-            free_tab_int(need_tab);
-            free_all(base, need_tab, tab);
-            exit(0);
-        }
     }
     execution(base, need_tab, tab);
     exit(1);

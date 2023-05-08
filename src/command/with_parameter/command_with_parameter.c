@@ -40,13 +40,32 @@ static int malloc_pipe(need_tab_t *need_tab)
 {
     if (need_tab == NULL)
         return KO;
-    printf("-----------------------------------------------\n");
     for (int x = 0; x < need_tab->nbr_parameter; x ++){
         if (pipe(need_tab->fd[x]) != OK)
             return KO;
-        printf("fd pipe -> [%d]\n", x);
         }
-    printf("-----------------------------------------------\n");
+    return OK;
+}
+
+static int condition_redirector(need_tab_t *need_tab, base_minishell_t *base,
+int *x)
+{
+    if (!need_tab || !base)
+        return KO;
+    if (check_left_redirector(base, need_tab) == KO)
+        return KO;
+    if (check_if_redirector(base->p_command[need_tab->tab_pos_y]\
+    [need_tab->tab_pos_x], need_tab) == OK){
+        need_tab->fd_pos += 1;
+            return OK;
+    }
+    if (need_tab->redirect_arg != 0){
+        if (file_function(base, need_tab, x) != OK)
+            return KO;
+        return OK;
+    }
+    if (child_display_parameter(base, need_tab) != OK)
+        return KO;
     return OK;
 }
 
@@ -62,13 +81,8 @@ need_tab_t *need_tab)
             return KO;
     }
     for (int x = 0; base->p_command[need_tab->tab_pos_y][x] != NULL; x += 1){
-        if (check_if_redirector(base->p_command[need_tab->tab_pos_y][x],
-        need_tab) == OK){
-            need_tab->fd_pos += 1;
-            continue;
-        }
         need_tab->tab_pos_x = x;
-        if (child_display_parameter(base, need_tab) != OK)
+        if (condition_redirector(need_tab, base, &x) != OK)
             return KO;
     }
     free_tab_int(need_tab);

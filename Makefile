@@ -12,15 +12,16 @@ SRC			=	main.c					\
 				cd/cd.c					\
 				pwd_function.c			\
 
-SRC_TOOLBOX	=	take_env.c					\
-				take_entry.c				\
-				starting.c					\
-				parameter.c					\
-				free.c						\
-				my_load_fd_in_memory.c		\
-				find_alias_of_the_command.c	\
-				replace_alias_with_command.c\
-				replace_alias_with_parameter.c\
+SRC_TOOLBOX	=	take_env.c						\
+				take_entry.c					\
+				starting.c						\
+				parameter.c						\
+				free.c							\
+				my_load_fd_in_memory.c			\
+				find_alias_of_the_command.c		\
+				replace_alias_with_command.c	\
+				replace_alias_with_parameter.c	\
+				write_in_file.c					\
 
 SRC_TAB		=	reduce_tab.c					\
 				enlarge_tab.c					\
