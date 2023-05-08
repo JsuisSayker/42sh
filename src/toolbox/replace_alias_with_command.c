@@ -33,6 +33,9 @@ static int replace_base_command(char **str_split_text, char **str_plit)
 static int get_len_alloc_str_split_to_str(char **str_plit)
 {
     int len_malloc = 0;
+
+    if (str_plit == NULL)
+        return 0;
     for (int i = 0; str_plit[i] != NULL; i += 1){
         len_malloc += strlen(str_plit[i]) + 1;
     }
@@ -41,9 +44,10 @@ static int get_len_alloc_str_split_to_str(char **str_plit)
 
 static int replace_entry_with_command_alias(char **str_plit, char **entry)
 {
+    int len_malloc = get_len_alloc_str_split_to_str(str_plit);
+
     if (str_plit == NULL || entry == NULL)
         return KO;
-    int len_malloc = get_len_alloc_str_split_to_str(str_plit);
     free((*entry));
     (*entry) = malloc(sizeof(char) * (len_malloc));
     strcpy((*entry), str_plit[0]);
@@ -58,17 +62,19 @@ int replace_alias_with_command(base_minishell_t *base, char **entry)
 {
     if (entry == NULL)
         return KO;
-    char **str_plit = my_splitstr((*entry), ' ');
+    char **str_plit = NULL;
     char *tmp_pwd = my_strcat(base->pwd, "/.alias.txt");
     char *str_file_in_memory = my_load_file_in_memory(tmp_pwd);
+
+    free(tmp_pwd);
     if (str_file_in_memory == NULL)
-        return 0;
+        return OK;
+    str_plit = my_splitstr((*entry), ' ');
     char **str_split_text = my_splitstr(str_file_in_memory, '\n');
     replace_base_command(str_split_text, str_plit);
     replace_entry_with_command_alias(str_plit, entry);
     free_tab_char(str_plit);
     free(str_file_in_memory);
     free_tab_char(str_split_text);
-    free(tmp_pwd);
     return OK;
 }
