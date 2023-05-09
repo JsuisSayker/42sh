@@ -19,7 +19,7 @@
     int history(base_minishell_t *base, char **tab);
 
         /* toolbox */
-    int free_all(base_minishell_t *base, need_tab_t *need_tab, char **tab);
+    int free_all(base_minishell_t *base, need_tab_t *need_tab);
     int free_tab_int(need_tab_t *need_tab);
     char *my_load_fd_in_memory(int fd);
     int free_str(all_str_t *all_str);
@@ -92,6 +92,9 @@
     int place_between_exiting_alias(char **str_split_text, int i, char **tab,\
     FILE *fd);
     int already_exist(char *key_variable, char **tab, FILE *fd, int *is_print);
+    int execute_cmd_and_cmd(base_minishell_t *base, need_tab_t *need_tab,
+    char **tab);
+
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);
