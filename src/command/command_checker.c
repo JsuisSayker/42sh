@@ -7,6 +7,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "proto.h"
 #include "macro.h"
@@ -26,7 +27,7 @@ const struct function OPERATORS_FUNCS[] = {
 static int check_reprograming_command_sub(base_minishell_t *base,
 int *reprograming_command)
 {
-    if (my_strcmp("exit", base->command[0]) == OK &&
+    if (strcmp("exit", base->command[0]) == OK &&
     base->command[0][4] == '\0') {
         *reprograming_command = 1;
         base->exit = 1;
