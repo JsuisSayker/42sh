@@ -56,7 +56,7 @@ int special_case(char **str_split_text, char **tab, FILE *fd)
     return 0;
 }
 
-int place_between_exiting_alias(char **str_split_text, int i, char **tab,
+int place_between_existing_alias(char **str_split_text, int i, char **tab,
 FILE *fd)
 {
     if (str_split_text[i + 1] != NULL){

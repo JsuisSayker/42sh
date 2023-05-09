@@ -45,10 +45,12 @@ int check_parameter_and_modif_tab(base_minishell_t *base)
         if ((all_str->str = my_strcpy(base->command[y])) == NULL)
             return KO;
         all_str->len_str = my_strlen(all_str->str);
-        if ((base->return_value = check_parameter(all_str)) != OK)
+        if ((base->return_value = check_parameter(all_str)) != OK){
+            free(all_str->str);
             return KO;
+        }
+        free(all_str->str);
     }
-    free(all_str->str);
     free(all_str);
     return OK;
 }
