@@ -21,7 +21,6 @@ int check_left_redirector(base_minishell_t *base, need_tab_t *need_tab)
         if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1]
         == NULL)
             return OK;
-        printf("----------------------------\n");
         printf("%c\n", base->p_command[need_tab->tab_pos_y]\
         [need_tab->tab_pos_x + 1][0]);
         if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1]\
@@ -52,9 +51,11 @@ int count_parameter(char *str)
     if (str == NULL)
         return KO;
     while (str[x] != '\0'){
-        if (str[x] == '|' || (str[x] == '>' && str[x + 1] != '>' &&
-        str[x - 1] != '>') || (str[x] == '<' && str[x + 1] != '<' &&
-        str[x - 1] != '<'))
+        if ((str[x] == '|' && str[x + 1] != '|' && str[x - 1] != '|') ||
+        (str[x] == '|' && str[x + 1] == '|' && str[x - 1] != '|') ||
+        (str[x] == '&' && str[x + 1] == '&' && str[x - 1] != '&') ||
+        (str[x] == '>' && str[x + 1] != '>' && str[x - 1] != '>') ||
+        (str[x] == '<' && str[x + 1] != '<' && str[x - 1] != '<'))
             nbr_parameter += 1;
         if ((str[x] == '>' && str[x + 1] == '>') ||
         (str[x] == '<' && str[x + 1] == '<')){
@@ -72,10 +73,13 @@ int take_parameter(char *str)
     int nbr_parameter = 0;
     if (str == NULL)
         return KO;
-    while (str[x] != '\0'){
-        if (str[x] == '|' || (str[x] == '>' && str[x + 1] != '>' &&
-        str[x - 1] != '>') || (str[x] == '<' && str[x + 1] != '<' &&
-        str[x - 1] != '<') || str[x] == ';')
+    while (str[x] != '\0') {
+        if ((str[x] == '|' && str[x + 1] != '|' && str[x - 1] != '|') ||
+        (str[x] == '|' && str[x + 1] == '|' && str[x - 1] != '|') ||
+        (str[x] == '&' && str[x + 1] == '&' && str[x - 1] != '&') ||
+        (str[x] == '>' && str[x + 1] != '>' && str[x - 1] != '>') ||
+        (str[x] == '<' && str[x + 1] != '<' && str[x - 1] != '<') ||
+        str[x] == ';')
             nbr_parameter += 1;
         if ((str[x] == '>' && str[x + 1] == '>') ||
         (str[x] == '<' && str[x + 1] == '<')){
@@ -90,14 +94,15 @@ int take_parameter(char *str)
 int count_parameter_sub(char **tab)
 {
     int nbr_parameter = 0;
+    int len_tab = my_tablen(tab);
     if (tab == NULL)
         return KO;
     for (int x = 0; tab[x] != NULL; x += 1){
-        if (tab[x][0] == '|' || (tab[x][0] == '>' && my_tablen(tab) < 2)
-        || (tab[x][0] == '<' && my_tablen(tab) < 2))
+        if (tab[x][0] == '|' || (tab[x][0] == '>' && len_tab < 2)
+        || (tab[x][0] == '<' && len_tab < 2))
             nbr_parameter += 1;
-        if ((tab[x][0] == '>' && my_tablen(tab) > 1)
-        || (tab[x][0] == '<' && my_tablen(tab) > 1))
+        if ((tab[x][0] == '>' && len_tab > 1)
+        || (tab[x][0] == '<' && len_tab > 1))
             nbr_parameter += 1;
     }
     return nbr_parameter;
