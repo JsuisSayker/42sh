@@ -22,6 +22,7 @@ SRC_TOOLBOX	=	take_env.c						\
 				replace_alias_with_command.c	\
 				replace_alias_with_parameter.c	\
 				write_in_file.c					\
+				clear_str.c						\
 
 SRC_TAB		=	reduce_tab.c					\
 				enlarge_tab.c					\
@@ -44,7 +45,8 @@ SRC_COMMAND	=	command.c									\
 				alias_sub.c									\
 				history.c									\
 				echo_command.c								\
-				redirector.c								\
+				file_function/redirector.c					\
+				file_function/left_or_right_redirector.c	\
 				with_parameter/function_build.c				\
 				with_parameter/command_with_parameter.c		\
 				with_parameter/duplicate_and_close_pipe.c	\
