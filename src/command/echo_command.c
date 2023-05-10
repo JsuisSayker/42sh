@@ -64,8 +64,7 @@ static int echo_command_sub(char **command, int tab_len, int flag, int i)
 
     if (command == NULL)
         return KO;
-    return
-    if (tab_len - i != 1)
+    if (my_tablen(command) - i != 1)
         multiple = 1;
     for (; command[i] != NULL; i ++) {
         if (oifozehguzeihfgzo(multiple, i, i_begin, command) == KO)
