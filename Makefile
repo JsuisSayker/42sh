@@ -112,6 +112,8 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	rm -f unit_tests*
+	rm -f .history.txt
+	rm -f .alias.txt
 	make fclean -C lib/my/
 
 re: fclean $(NAME)
