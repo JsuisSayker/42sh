@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** 42sh
 ** File description:
-** redirector
+** left_or_right_redirector
 */
 
 #include <unistd.h>
@@ -25,7 +25,7 @@ char *str)
     return OK;
 }
 
-static int right_redirector(base_minishell_t *base, need_tab_t *need_tab,
+int right_redirector(base_minishell_t *base, need_tab_t *need_tab,
 char **command)
 {
     char *str;
@@ -49,43 +49,38 @@ char **command)
     return 1;
 }
 
-static int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
-char **tab_command, int *x)
+int error_message(char *filename)
 {
-    int fd = 0;
-    if (strcmp(">", base->p_command[need_tab->tab_pos_y]\
-    [need_tab->tab_pos_x + 1]) == OK){
-        if ((fd = open(base->p_command[need_tab->tab_pos_y]\
-        [need_tab->tab_pos_x + 2], O_RDONLY)) == -1)
-            return KO;
-        dup2(fd, STDIN_FILENO);
-        base->yes_or_not = 0;
-        if (command(base, need_tab, tab_command) != OK)
-            return KO;
-        *x += 2;
-        return OK;
-    }
+    int len = 0;
+    if (!filename)
+        return KO;
+    if ((len = my_strlen(filename)) == KO)
+        return KO;
+    if (write(1, filename, len) == KO)
+        return KO;
+    if (write(1, ": No such file or directory.\n", 29) == KO)
+        return KO;
+    free(filename);
     return OK;
 }
 
-int file_function(base_minishell_t *base, need_tab_t *need_tab, int *x)
+int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
+char **tab_command)
 {
-    char **command = NULL;
-    if (base == NULL || need_tab == NULL)
+    char *filename = NULL;
+    int fd;
+    if ((filename = clean_str(base->p_command[need_tab->tab_pos_y]\
+    [need_tab->tab_pos_x + 2])) == NULL)
         return KO;
-    command = my_splitstr(base->p_command[need_tab->tab_pos_y]\
-    [need_tab->tab_pos_x], ' ');
-    if (need_tab->redirect_arg == 2){
-        need_tab->redirect_arg = 0;
-        if (right_redirector(base, need_tab, command) == OK){
+    if (strcmp("<", base->p_command[need_tab->tab_pos_y]\
+    [need_tab->tab_pos_x + 1]) == OK){
+        if ((fd = open(filename, O_RDONLY)) == KO){
+            error_message(filename);
             return OK;
         }
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+        execution(base, need_tab, tab_command);
     }
-    if (need_tab->redirect_arg == 1){
-        need_tab->redirect_arg = 0;
-        if (left_redirector(base, need_tab, command, x) == OK){
-            return OK;
-        }
-    }
-    return KO;
+    return OK;
 }

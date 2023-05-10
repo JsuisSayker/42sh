@@ -15,19 +15,12 @@
 
 int check_left_redirector(base_minishell_t *base, need_tab_t *need_tab)
 {
-    if (base->yes_or_not == 4){
-        if (!base || !need_tab)
-            return KO;
-        if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1]
-        == NULL)
-            return OK;
-        printf("%c\n", base->p_command[need_tab->tab_pos_y]\
-        [need_tab->tab_pos_x + 1][0]);
-        if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1]\
-        [0] == '<')
-            need_tab->redirect_arg = 1;
+    if (!base || !need_tab)
+        return KO;
+    if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1] == NULL)
         return OK;
-    }
+    if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1][0] == '<')
+        need_tab->redirect_arg = 1;
     return OK;
 }
 
