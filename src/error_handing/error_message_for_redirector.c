@@ -12,13 +12,13 @@
 
 int error_message_redirector(args_s_t *args)
 {
-    if (args->multiple == 1){
-        if (write(2, "Ambiguous output redirect.\n", 27) == -1)
+    if (args->after != 1){
+        if (write(2, "Missing name for redirect.\n", 27) == -1)
             return 1;
         return 1;
     }
-    if (args->after != 1){
-        if (write(2, "Missing name for redirect.\n", 27) == -1)
+    if (args->multiple == 1){
+        if (write(2, "Ambiguous output redirect.\n", 27) == -1)
             return 1;
         return 1;
     }
