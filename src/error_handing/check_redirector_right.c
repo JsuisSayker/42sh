@@ -17,7 +17,7 @@ static int count_redirector(all_str_t *all_str, int *x)
 {
     int nbr_redirector = 0;
     for (int i = *x; all_str->str[i] != '\0'; i += 1){
-        if (all_str->str[i] == '>' || all_str->str[i] == '<')
+        if (all_str->str[i] == '>')
             nbr_redirector += 1;
         else
             return nbr_redirector;
@@ -54,18 +54,19 @@ int i)
     int move = 0;
     if (!all_str || !args || !x)
         return KO;
-    move = *x + i;
-    if (all_str->str[i] == '<' || all_str-> str[i] == '>'){
-        args->ambigous = 1;
-        if (check_redirector_input(all_str, args, &move) == KO)
+    move = i;
+    if (all_str-> str[i] == '>'){
+        args->ambigous_output = 1;
+        if (check_redirector_right(all_str, args, &move) == KO)
             return KO;
-        *x = move;
-        return OK;
     }
-    if (all_str->str[i] == '|'){
-        args->ambigous = 1;
-        return OK;
+    if (all_str-> str[i] == '<'){
+        if (check_redirector_left(all_str, args, &move) == KO)
+            return KO;
     }
+    if (all_str->str[i] == '|')
+        args->ambigous_output = 1;
+    *x = move;
     return OK;
 }
 
@@ -81,7 +82,7 @@ static int check_multiple(all_str_t *all_str, args_s_t *args, int *x)
     return OK;
 }
 
-int check_redirector_input(all_str_t *all_str, args_s_t *args_s, int *x)
+int check_redirector_right(all_str_t *all_str, args_s_t *args_s, int *x)
 {
     if (all_str->len_str <= *x){
         args_s->missing = 1;

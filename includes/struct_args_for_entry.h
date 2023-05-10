@@ -11,7 +11,8 @@
     typedef struct args_s{
         int invalide;
         int missing;
-        int ambigous;
+        int ambigous_input;
+        int ambigous_output;
         int nbr_parameter;
     }args_s_t;
 

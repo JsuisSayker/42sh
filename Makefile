@@ -60,7 +60,8 @@ SRC_ERROR	=	check_argc_argv.c				\
 				check_pipe.c					\
 				error_message_cmd.c				\
 				error_message_parameter.c		\
-				check_redirector.c				\
+				check_redirector_left.c			\
+				check_redirector_right.c		\
 
 DIR_SRC		=	$(addprefix src/, $(SRC))
 

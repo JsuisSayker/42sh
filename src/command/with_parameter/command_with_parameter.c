@@ -18,7 +18,7 @@ static int initialisation_value(base_minishell_t *base, need_tab_t *need_tab)
     if ((tab_len = my_tablen(base->p_command[need_tab->tab_pos_y])) == OK)
         return KO;
     if ((need_tab->nbr_parameter =
-    count_parameter(base->command[need_tab->tab_pos_y])) == KO)
+    take_parameter(base->command[need_tab->tab_pos_y])) == KO)
         return KO;
     if (need_tab->nbr_parameter == 0)
         return OK;

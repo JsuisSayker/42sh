@@ -61,7 +61,8 @@
 
         /* error_handing */
     void error_and_free_message_cmd(base_minishell_t *base, char **tab);
-    int check_redirector_input(all_str_t *all_str, args_s_t *args_s, int *x);
+    int check_redirector_left(all_str_t *all_str, args_s_t *args_s, int *x);
+    int check_redirector_right(all_str_t *all_str, args_s_t *args_s, int *x);
     int check_argc_argv(int ac, char const *const *av);
     int error_message_parameter(base_minishell_t * base, args_s_t *args);
     int check_before(all_str_t *all_str, args_s_t * args_s, int *x);

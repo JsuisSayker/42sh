@@ -18,10 +18,17 @@ static int check_parameter_sub(all_str_t *all_str, args_s_t *args, int *x)
     if (all_str->str[*x] == '|'){
         if (check_pipe(all_str, args, x) != OK)
             return KO;
+        return OK;
     }
-    if (all_str->str[*x] == '<' || all_str->str[*x] == '>'){
-        if (check_redirector_input(all_str, args, x) != OK)
+    if (all_str->str[*x] == '<'){
+        if (check_redirector_left(all_str, args, x) != OK)
             return KO;
+        return OK;
+    }
+    if (all_str->str[*x] == '>'){
+        if (check_redirector_right(all_str, args, x) != OK)
+            return KO;
+        return OK;
     }
     return OK;
 }
@@ -32,7 +39,8 @@ args_s_t *args)
     if (!all_str || !args)
         return KO;
     args->invalide = 0;
-    args->ambigous = 0;
+    args->ambigous_output = 0;
+    args->ambigous_input = 0;
     args->missing = 0;
     for (int x = 0; all_str->str[x] != '\0' && x < all_str->len_str; x += 1){
         if (check_parameter_sub(all_str, args, &x) != OK)

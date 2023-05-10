@@ -76,6 +76,7 @@ char **tab_command)
     [need_tab->tab_pos_x + 1]) == OK){
         if ((fd = open(filename, O_RDONLY)) == KO){
             error_message(filename);
+            close(fd);
             return OK;
         }
         dup2(fd, STDIN_FILENO);

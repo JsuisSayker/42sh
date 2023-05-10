@@ -21,7 +21,7 @@ static int clear_len(char *str, int len)
             break;
         count += 1;
     }
-    for (int i = len; 0 < i ; i ++){
+    for (int i = len - 1; 0 < i ; i ++){
         if (str[i] != ' ')
             break;
         count += 1;
