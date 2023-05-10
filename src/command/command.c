@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stddef.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 
 #include "proto.h"
 #include "macro.h"
@@ -37,19 +38,18 @@ void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
 {
     errno = 0;
     execve(tab[0], tab, base->env);
+    bool search_in_path_cmd = false;
+    check_cmd_with_slash(&search_in_path_cmd, tab);
     if (errno == 8)
         display_error_command_bad_binary(base, need_tab, tab[0]);
-    if (tab[0][0] != '.' && tab[0][1] != '/') {
+    if (tab[0][0] != '.' && tab[0][1] != '/' && search_in_path_cmd == false) {
         for (int i = 0; base->path[i] != NULL; i += 1) {
             char *command = string_command(base->path[i], tab[0]);
             execve(command, tab, base->env);
             free(command);
         }
     }
-    display_error_command(tab[0]);
-    if (base->yes_or_not == 1)
-        free_tab_int(need_tab);
-    free_all(base, need_tab);
+    print_error_and_free(tab, base, need_tab);
     if (errno == 8)
         exit(126);
     exit(1);
