@@ -20,51 +20,25 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-int display_with_permission(char *cmd)
+void display_error_command_bad_binary(base_minishell_t *base, need_tab_t
+*need_tab, char * cmd)
 {
-    int fd = 0;
-    if (write(2, cmd, my_strlen(cmd)) == -1)
-        return 84;
-    fd = open(cmd, O_RDONLY);
-    if (fd == -1){
-        if (write(2, ": Command not found.\n", 21) == -1)
-            return 84;
-    } else {
-        if (write(2, ": Permission denied.\n", 21) == -1)
-            return 84;
-        close(fd);
-    }
-    return 0;
-}
-
-int display_error_command(char *cmd)
-{
-    switch (errno){
-        case 2:
-            if (display_with_permission(cmd) == 84)
-                return 84;
-            break;
-        case 8:
-            if (write(2, cmd, my_strlen(cmd)) == -1)
-                return 84;
-            if (write(2, ": ", 2) == -1)
-                return 84;
-            if (write(2, cmd, my_strlen(cmd)) == -1)
-                return 84;
-            if (write(2, ": cannot execute binary file\n", 29) == -1)
-                return 84;
-            break;
-        default:
-            fprintf(stderr,"%s: %s\n", cmd, strerror(errno));
-            break;
-    }
-    return 0;
+    write(2, cmd, my_strlen(cmd));
+    write(2, ": ", 2);
+    write(2, cmd, my_strlen(cmd));
+    write(2, ": cannot execute binary file\n", 29);
+    if (base->yes_or_not == 1)
+        free_tab_int(need_tab);
+    free_all(base, need_tab);
+    exit(126);
 }
 
 void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
 {
     errno = 0;
     execve(tab[0], tab, base->env);
+    if (errno == 8)
+        display_error_command_bad_binary(base, need_tab, tab[0]);
     if (tab[0][0] != '.' && tab[0][1] != '/') {
         for (int i = 0; base->path[i] != NULL; i += 1) {
             char *command = string_command(base->path[i], tab[0]);
