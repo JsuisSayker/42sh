@@ -21,17 +21,20 @@ static int change_index_when_inhibitor(char const *str, int j, int i)
 
 static char *malloc_and_create_str(char const *str, int i, int j)
 {
-    int count;
+    int count_str;
+    int count_word = 0;
     char *word = malloc(sizeof(char) * (j + 1));
     if (str == NULL || word == NULL)
         return NULL;
-    for (count = 0; count < j; count += 1) {
-        if (str[i + count] == '\\' && str[i + count + 1] == ' ')
-            word[count] = ' ';
-        else
-            word[count] = str[i + count];
+    for (count_str = 0; count_str < j; count_str += 1) {
+        if (str[i + count_str] == '\\' && str[i + count_str + 1] == ' ') {
+            word[count_word] = ' ';
+            count_str += 1;
+        } else
+            word[count_word] = str[i + count_str];
+        count_word += 1;
     }
-    word[j] = '\0';
+    word[count_word] = '\0';
     return word;
 }
 
