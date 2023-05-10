@@ -54,7 +54,10 @@ SRC_COMMAND	=	command.c									\
 				with_parameter/duplicate_and_close_pipe.c	\
 				with_parameter/function_build_checker.c		\
 				display_error_command.c						\
-
+				execute_cmd_and_cmd.c						\
+				check_cmd_with_slash.c						\
+				print_error_and_free.c						\
+				special_exec.c								\
 
 SRC_ERROR	=	check_argc_argv.c				\
 				check_pipe.c					\
