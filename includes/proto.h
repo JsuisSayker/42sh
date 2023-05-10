@@ -40,7 +40,8 @@
     int replace_alias_with_parameter(base_minishell_t *base);
     int append_stdout_to_file(const char *filename, char *str);
     int put_stdout_in_file(const char *filename, char *str);
-    char *clear_str(char *str);
+    char *clean_str(char *str);
+    char *tab_to_char(char **tab);
 
         /* tab */
     char **reduce_tab(char **src, char *str);
@@ -96,9 +97,8 @@
     int right_redirector(base_minishell_t *base, need_tab_t *need_tab,
     char **command);
     int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
-    char **tab_command, int *x);
-    int execute_cmd_and_cmd(base_minishell_t *base, need_tab_t *need_tab,
-    char **tab);
+    char **tab_command);
+    void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);

@@ -22,7 +22,8 @@ SRC_TOOLBOX	=	take_env.c						\
 				replace_alias_with_command.c	\
 				replace_alias_with_parameter.c	\
 				write_in_file.c					\
-				clear_str.c						\
+				clean_str.c						\
+				tab_to_char.c					\
 
 SRC_TAB		=	reduce_tab.c					\
 				enlarge_tab.c					\

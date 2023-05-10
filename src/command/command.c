@@ -61,7 +61,7 @@ int display_error_command(char *cmd)
     return 0;
 }
 
-static void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
+void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
 {
     errno = 0;
     execve(tab[0], tab, base->env);
@@ -86,6 +86,13 @@ char **tab)
     if (base == NULL || need_tab == NULL)
         return KO;
     duplicate_function(base, need_tab);
+    if (need_tab->redirect_arg == 1){
+        if (left_redirector(base, need_tab, tab) == OK){
+            free_all(base, need_tab);
+            free_tab_char(tab);
+            exit(0);
+        }
+    }
     if (base->yes_or_not == 1){
         if (function_build(base, tab) == OK){
             free_tab_int(need_tab);
