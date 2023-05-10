@@ -61,10 +61,11 @@
 
         /* error_handing */
     void error_and_free_message_cmd(base_minishell_t *base, char **tab);
-    int check_redirector_input(all_str_t *all_str, int *x);
+    int check_redirector_input(all_str_t *all_str, args_s_t *args_s, int *x);
     int check_argc_argv(int ac, char const *const *av);
-    int error_message_redirector(args_s_t *args);
-    int check_pipe(all_str_t *all_str, int *x);
+    int error_message_parameter(base_minishell_t * base, args_s_t *args);
+    int check_before(all_str_t *all_str, args_s_t * args_s, int *x);
+    int check_pipe(all_str_t *all_str, args_s_t *args, int *x);
 
         /* command */
     void close_function(base_minishell_t *base, need_tab_t *need_tab);

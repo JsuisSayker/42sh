@@ -8,24 +8,28 @@
 #include <unistd.h>
 
 #include "macro.h"
+#include "struct.h"
 #include "struct_args_for_entry.h"
 
-int error_message_redirector(args_s_t *args)
+int error_message_parameter(base_minishell_t *base, args_s_t *args)
 {
-    if (args->after != 1){
+    if (args->missing == 1){
         if (write(2, "Missing name for redirect.\n", 27) == -1)
             return 1;
-        return 1;
+        base->return_value = 1;
+        return KO;
     }
-    if (args->multiple == 1){
+    if (args->ambigous == 1){
         if (write(2, "Ambiguous output redirect.\n", 27) == -1)
             return 1;
-        return 1;
+        base->return_value = 1;
+        return KO;
     }
-    if (args->before != 1){
+    if (args->invalide == 1){
         if (write(2, "Invalid null command.\n", 22) == -1)
             return 1;
-        return 1;
+        base->return_value = 1;
+        return KO;
     }
     return OK;
 }

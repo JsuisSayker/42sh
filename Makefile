@@ -58,7 +58,7 @@ SRC_COMMAND	=	command.c									\
 SRC_ERROR	=	check_argc_argv.c				\
 				check_pipe.c					\
 				error_message_cmd.c				\
-				error_message_for_redirector.c	\
+				error_message_parameter.c		\
 				check_redirector.c				\
 
 DIR_SRC		=	$(addprefix src/, $(SRC))

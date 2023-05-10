@@ -25,76 +25,81 @@ static int count_redirector(all_str_t *all_str, int *x)
     return nbr_redirector;
 }
 
-static int check_multiple(args_s_t *args, char *str, int *x, int nbr_redirect)
+static int check_after(all_str_t *all_str, args_s_t *args_s, int *x)
 {
-    for (int i = *x + nbr_redirect; str[i] != '\0'; i += 1){
-        if (str[i] == '<' || str[i] == '>' || str[i] == '|'){
-            args->multiple = 1;
-            break;
-        }
-    }
-    if (error_message_redirector(args) != OK){
-        return 1;
-    }
-    return OK;
-}
-
-static int check_before_after(args_s_t *args, char *str, int *x,
-int nbr_redirect)
-{
-    for (int i = *x; i > 0; i -= 1){
-        if (str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ' '){
-            args->before = 1;
-            break;
-        }
-        if (str[i] == '|' && str[i] == '<' && str[i] == '>')
-            break;
-    }
-    if (0 == *x)
-        args->before = 0;
-    if (check_multiple(args, str, x, nbr_redirect) != OK)
-        return 1;
-    return OK;
-}
-
-static int check_before_and_after(args_s_t *args, all_str_t *all_str, int *x,
-int nbr_redirect)
-{
-    for (int i = (*x + nbr_redirect); all_str->str[i] != '\0'; i += 1){
-        if (all_str->str[i] != '|' && all_str->str[i] != '<' &&
-        all_str->str[i] != '>' && all_str->str[i] != ' '){
-            args->after = 1;
-            break;
-        }
-        if (all_str->str[i] == '|' && all_str->str[i] == '<' &&
-        all_str->str[i] == '>')
-            break;
-    }
-    if ((all_str->len_str) == (*x + nbr_redirect))
-        args->after = 0;
-    if (check_before_after(args, all_str->str, x, nbr_redirect) != OK)
+    int args = 0;
+    if (!all_str || !args_s || !x)
         return KO;
+    for (int i = (*x + args_s->nbr_parameter); all_str->str[i] != '\0'; i += 1){
+        if (all_str->str[i] != '|' && all_str->str[i] != '<' &&
+        all_str->str[i] != '>' && all_str->str[i] != ' ' &&
+        all_str->str[i] != '&'){
+            args = 1;
+            break;
+        }
+        if (all_str->str[i] == '|' || all_str->str[i] == '<' ||
+        all_str->str[i] == '>' || all_str->str[i] == '&')
+            break;
+    }
+    if (args == 0)
+        args_s->missing = 1;
+    if ((all_str->len_str) == (*x + args_s->nbr_parameter))
+        args_s->missing = 1;
     return OK;
 }
 
-int check_redirector_input(all_str_t *all_str, int *x)
+static int condition_mulitple(all_str_t *all_str, args_s_t *args, int *x,
+int i)
 {
-    args_s_t *args = malloc(sizeof(args_s_t));
-    args->after = 0;
-    args->before = 0;
-    args->multiple = 0;
-    int nbr_redirector = count_redirector(all_str, x);
-    if (nbr_redirector > 2){
+    int move = 0;
+    if (!all_str || !args || !x)
+        return KO;
+    move = *x + i;
+    if (all_str->str[i] == '<' || all_str-> str[i] == '>'){
+        args->ambigous = 1;
+        if (check_redirector_input(all_str, args, &move) == KO)
+            return KO;
+        *x = move;
+        return OK;
+    }
+    if (all_str->str[i] == '|'){
+        args->ambigous = 1;
+        return OK;
+    }
+    return OK;
+}
+
+static int check_multiple(all_str_t *all_str, args_s_t *args, int *x)
+{
+    int i = 0;
+    if (!all_str || !args || !x)
+        return KO;
+    for (i = *x + args->nbr_parameter; all_str->str[i] != '\0'; i += 1){
+        if (condition_mulitple(all_str, args, x, i) != OK)
+            return KO;
+    }
+    return OK;
+}
+
+int check_redirector_input(all_str_t *all_str, args_s_t *args_s, int *x)
+{
+    if (all_str->len_str <= *x){
+        args_s->missing = 1;
+        return OK;
+    }
+    if ((args_s->nbr_parameter = count_redirector(all_str, x)) == KO)
+        return KO;
+    if (args_s->nbr_parameter > 2){
         if (write(2, "Missing name for redirect.\n", 27) == -1)
-            return 1;
-        free(args);
-        return 1;
+            return KO;
+        return KO;
     }
-    if (check_before_and_after(args, all_str, x, nbr_redirector) != OK){
-        free(args);
-        return 1;
-    }
-    *x += nbr_redirector;
-    free(args);
+    if (check_before(all_str, args_s, x) != OK)
+        return KO;
+    if (check_after(all_str, args_s, x) != OK)
+        return KO;
+    if (check_multiple(all_str, args_s, x) != OK)
+        return KO;
+    *x += args_s->nbr_parameter;
     return OK;
 }
