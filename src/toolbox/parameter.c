@@ -8,12 +8,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "macro.h"
 #include "struct.h"
 #include "proto_lib.h"
 
-int check_left_redirector(base_minishell_t *base, need_tab_t *need_tab)
+int check_left_redirector_and_param(base_minishell_t *base,
+need_tab_t *need_tab)
 {
     if (!base || !need_tab)
         return KO;
@@ -21,6 +23,8 @@ int check_left_redirector(base_minishell_t *base, need_tab_t *need_tab)
         return OK;
     if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1][0] == '<')
         need_tab->redirect_arg = 1;
+    if (base->p_command[need_tab->tab_pos_y][need_tab->tab_pos_x + 1][0] == '&')
+        need_tab->special_exec = 1;
     return OK;
 }
 
@@ -30,6 +34,10 @@ int check_if_redirector(char *str, need_tab_t *need_tab)
         return OK;
     if (str[0] == ';')
         return OK;
+    if (str[0] == '&' && str[1] == '&') {
+        need_tab->special_exec = 1;
+        return OK;
+    }
     if (str[0] == '>'){
         need_tab->redirect_arg = 2;
         return OK;
