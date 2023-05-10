@@ -62,6 +62,7 @@ int count_parameter(char *str)
 
 int take_parameter(char *str)
 {
+    int len = 0;
     int x = 0;
     int nbr_parameter = 0;
     if (str == NULL)
