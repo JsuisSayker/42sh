@@ -19,7 +19,7 @@
 
 int replace_alias_with_parameter(base_minishell_t *base)
 {
-    if (base->p_command == NULL)
+    if (base == NULL)
         return OK;
     for (int i = 0; base->p_command[i] != NULL; i += 1){
         for (int j = 0; base->p_command[i][j] != NULL; j += 1){

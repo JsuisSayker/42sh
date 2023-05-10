@@ -57,7 +57,7 @@ int *nbr_parameter, int *restart)
             replace_alias_with_command(base, &entry);
         if (entry_w_parameter_or_not(base, entry, nbr_parameter) != OK)
             *restart = 1;
-        if (*nbr_parameter != 0)
+        if (*nbr_parameter != 0 && *restart == 0)
             replace_alias_with_parameter(base);
     }
     free(entry);
