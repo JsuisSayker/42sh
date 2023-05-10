@@ -71,6 +71,7 @@ int check_parameter_and_modif_tab(base_minishell_t *base)
         }
         free(all_str->str);
     }
+    free(args);
     free(all_str);
     return OK;
 }
