@@ -28,6 +28,7 @@
         int nbr_parameter;
         int redirect_arg;
         int aft_arg;
+        int special_exec;
     } need_tab_t;
 
     typedef struct all_str_s {
