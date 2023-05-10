@@ -13,4 +13,5 @@ int my_putchar(char c)
 {
     if (write (1, &c, 1) == KO)
         return KO;
+    return OK;
 }
