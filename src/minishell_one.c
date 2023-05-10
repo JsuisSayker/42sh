@@ -21,6 +21,7 @@ static void add_value(need_tab_t *need_tab)
     need_tab->tab_len = 0;
     need_tab->tab_pos_x = 0;
     need_tab->tab_pos_y = 0;
+    need_tab->special_exec = 0;
 }
 
 static int minishell_two(base_minishell_t *base, need_tab_t *need_tab,
