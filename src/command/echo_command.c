@@ -34,15 +34,41 @@ static int echo_command_ter(char **command, int tab_len, int i)
     return OK;
 }
 
-static int echo_command_sub(char **command, int tab_len, int flag, int i)
+static int oifozehguzeihfgzo(int multiple, int i, int i_begin, char **command)
 {
     int len_str = 0;
+    int tab_len = my_tablen(command);
+
+    if ((len_str = my_strlen(command[i])) == KO)
+        return KO;
+    if (multiple == 1 && i == i_begin) {
+        if (write(1, &(command[i][1]), len_str - 1) == KO)
+            return KO;
+    }
+    if (multiple == 1 && i == tab_len - 1) {
+        if (write(1, command[i], len_str - 1) == KO)
+            return KO;
+    }
+    if (!((multiple == 1 && i == tab_len - 1) ||
+    (multiple == 1 && i == i_begin))) {
+        if (write(1, command[i], len_str) == KO)
+            return KO;
+    }
+    return 0;
+}
+
+static int echo_command_sub(char **command, int tab_len, int flag, int i)
+{
+    int multiple = 0;
+    int i_begin = i;
+
     if (command == NULL)
         return KO;
-    for (; command[i] != NULL; i ++){
-        if ((len_str = my_strlen(command[i])) == KO)
-            return KO;
-        if (write(1, command[i], len_str) == KO)
+    return
+    if (tab_len - i != 1)
+        multiple = 1;
+    for (; command[i] != NULL; i ++) {
+        if (oifozehguzeihfgzo(multiple, i, i_begin, command) == KO)
             return KO;
         if (echo_command_ter(command, tab_len, i) != OK)
             return KO;

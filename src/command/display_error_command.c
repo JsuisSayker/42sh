@@ -47,7 +47,7 @@ int display_error_command(char *cmd)
                 return 84;
             break;
         default:
-            fprintf(stderr,"%s: %s\n", cmd, strerror(errno));
+            fprintf(stderr,"%s: %s.\n", cmd, strerror(errno));
             break;
     }
     return 0;
