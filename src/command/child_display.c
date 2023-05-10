@@ -41,7 +41,7 @@ pid_t pid, int value)
     base->return_value = WEXITSTATUS(value) + WTERMSIG(value) +
     WCOREDUMP(value);
     if (WTERMSIG(value) == 8)
-        write(2, "Floating execption", 18);
+        write(2, "Floating exception", 18);
     if (WTERMSIG(value) == 11)
         write(2, "Segmentation fault", 18);
     child_display_sub(value);
