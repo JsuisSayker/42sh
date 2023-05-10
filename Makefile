@@ -53,6 +53,7 @@ SRC_COMMAND	=	command.c									\
 				with_parameter/command_with_parameter.c		\
 				with_parameter/duplicate_and_close_pipe.c	\
 				with_parameter/function_build_checker.c		\
+				display_error_command.c						\
 
 
 SRC_ERROR	=	check_argc_argv.c				\
@@ -112,6 +113,8 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	rm -f unit_tests*
+	rm -f .history.txt
+	rm -f .alias.txt
 	make fclean -C lib/my/
 
 re: fclean $(NAME)

@@ -100,6 +100,7 @@
     int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
     char **tab_command);
     void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab);
+    int display_error_command(char *cmd);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);
