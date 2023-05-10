@@ -90,13 +90,15 @@
     int file_function(base_minishell_t *base, need_tab_t *need_tab, int *x);
     int print_table(int len_tab, FILE *fd, char **tab);
     int special_case(char **str_split_text, char **tab, FILE *fd);
-    int place_between_exiting_alias(char **str_split_text, int i, char **tab,\
+    int place_between_existing_alias(char **str_split_text, int i, char **tab,\
     FILE *fd);
     int already_exist(char *key_variable, char **tab, FILE *fd, int *is_print);
     int right_redirector(base_minishell_t *base, need_tab_t *need_tab,
     char **command);
     int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
     char **tab_command, int *x);
+    int execute_cmd_and_cmd(base_minishell_t *base, need_tab_t *need_tab,
+    char **tab);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);

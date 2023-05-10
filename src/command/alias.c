@@ -19,7 +19,7 @@ int filter_and_print_text(char **str_split_text, char **tab, FILE *fd)
         return special_case(str_split_text, tab, fd);
     for (int i = 0; str_split_text[i] != NULL; i += 1) {
         char **str_split_line = my_splitstr(str_split_text[i], ' ');
-        if (place_between_exiting_alias(str_split_text, i, tab, fd) == 1)
+        if (place_between_existing_alias(str_split_text, i, tab, fd) == 1)
             is_print = 1;
         already_exist(str_split_line[0], tab ,fd, &is_print);
         if (strcmp(str_split_text[i], tab[1]) > 0 && is_print == 0) {

@@ -55,10 +55,14 @@ int child_display_parameter(base_minishell_t *base, need_tab_t *need_tab)
         return KO;
     tab_command = my_splitstr(base->p_command[need_tab->tab_pos_y]
     [need_tab->tab_pos_x], ' ');
-    if (check_function_build(base, need_tab, tab_command) == OK)
+    if (check_function_build(base, need_tab, tab_command) == OK){
+        free_tab_char(tab_command);
         return OK;
-    if (command(base, need_tab, tab_command) != OK)
+    }
+    if (command(base, need_tab, tab_command) != OK){
+        free_tab_char(tab_command);
         return KO;
+    }
     free_tab_char(tab_command);
     return OK;
 }
