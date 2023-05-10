@@ -65,8 +65,8 @@ void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
 {
     errno = 0;
     execve(tab[0], tab, base->env);
-    if (tab[0][0] != '.' && tab[0][1] != '/'){
-        for (int i = 0; base->path[i] != NULL; i += 1){
+    if (tab[0][0] != '.' && tab[0][1] != '/') {
+        for (int i = 0; base->path[i] != NULL; i += 1) {
             char *command = string_command(base->path[i], tab[0]);
             execve(command, tab, base->env);
             free(command);
@@ -78,6 +78,7 @@ void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
     free_all(base, need_tab);
     if (errno == 8)
         exit(126);
+    exit(1);
 }
 
 static int command_execute(base_minishell_t *base, need_tab_t *need_tab,

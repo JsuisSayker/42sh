@@ -76,8 +76,8 @@ char **my_splitstr(char const *str, int separator)
         if (str[i] == separator)
             continue;
         for (j = 0; str[j + i] != '\0' && str[j + i] != separator &&
-            (i + j) < len_word; j += 1)
-                j = change_index_when_inhibitor(str, j, i);
+        (i + j) < len_word; j += 1)
+            j = change_index_when_inhibitor(str, j, i);
         tab[k] = malloc_and_create_str(str, i, j);
         k += 1;
         i += j;
