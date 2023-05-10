@@ -43,6 +43,11 @@ int cd_reprogramming(base_minishell_t *base, char **tab)
         write(2, "cd: Too many arguments.\n", 24);
         return 1;
     }
+    if (my_strncmp("-", tab[1], 1) == OK && tab[1][1] != '\0'){
+        write(2, "Usage: cd [-plvn][-|<dir>].\n", 28);
+        base->return_value = 1;
+        return 1;
+    }
     if (cd_checker(base, tab) != OK)
         return KO;
     return OK;
