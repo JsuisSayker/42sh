@@ -51,7 +51,7 @@ int nbr_redirect)
             break;
     }
     if (0 == *x)
-        args->before = 1;
+        args->before = 0;
     if (check_multiple(args, str, x, nbr_redirect) != OK)
         return 1;
     return OK;
@@ -71,7 +71,7 @@ int nbr_redirect)
             break;
     }
     if ((all_str->len_str) == (*x + nbr_redirect))
-        args->after = 1;
+        args->after = 0;
     if (check_before_after(args, all_str->str, x, nbr_redirect) != OK)
         return KO;
     return OK;

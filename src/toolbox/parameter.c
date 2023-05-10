@@ -60,31 +60,6 @@ int count_parameter(char *str)
     return nbr_parameter;
 }
 
-int take_parameter(char *str)
-{
-    int len = 0;
-    int x = 0;
-    int nbr_parameter = 0;
-    if (str == NULL)
-        return KO;
-    while (str[x] != '\0') {
-        if ((str[x] == '|' && str[x + 1] != '|' && str[x - 1] != '|') ||
-        (str[x] == '|' && str[x + 1] == '|' && str[x - 1] != '|') ||
-        (str[x] == '&' && str[x + 1] == '&' && str[x - 1] != '&') ||
-        (str[x] == '>' && str[x + 1] != '>' && str[x - 1] != '>') ||
-        (str[x] == '<' && str[x + 1] != '<' && str[x - 1] != '<') ||
-        str[x] == ';')
-            nbr_parameter += 1;
-        if ((str[x] == '>' && str[x + 1] == '>') ||
-        (str[x] == '<' && str[x + 1] == '<')){
-            nbr_parameter += 1;
-            x += 1;
-        }
-        x += 1;
-    }
-    return nbr_parameter;
-}
-
 int count_parameter_sub(char **tab)
 {
     int nbr_parameter = 0;

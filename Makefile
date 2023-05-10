@@ -24,6 +24,7 @@ SRC_TOOLBOX	=	take_env.c						\
 				write_in_file.c					\
 				clean_str.c						\
 				tab_to_char.c					\
+				take_parameter.c				\
 
 SRC_TAB		=	reduce_tab.c					\
 				enlarge_tab.c					\
