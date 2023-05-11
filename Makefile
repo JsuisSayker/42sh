@@ -36,6 +36,7 @@ SRC_TAB		=	reduce_tab.c					\
 				display_file.c					\
 				append_cmd_to_history.c			\
 				my_load_file_in_memory.c		\
+				get_actual_time.c				\
 
 SRC_COMMAND	=	command.c									\
 				command_checker.c							\

@@ -30,7 +30,7 @@ void display_error_command_bad_binary(base_minishell_t *base, need_tab_t
     exit(1);
 }
 
-void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
+int execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
 {
     errno = 0;
     execve(tab[0], tab, base->env);

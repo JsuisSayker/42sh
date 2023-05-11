@@ -15,15 +15,6 @@
 #include "proto.h"
 #include "proto_lib.h"
 
-char *get_actual_time(void)
-{
-    struct tm* local;
-    time_t t = time(NULL);
-    local = localtime(&t);
-    char *current_time = asctime(local);
-    return current_time;
-}
-
 int create_history(char *str_file_in_memory, const char *filename,
 char *str, char **str_split_hours)
 {
@@ -73,16 +64,25 @@ char *str_file_in_memory, char **str_split_hours)
     return 0;
 }
 
-int append_cmd_to_history(const char *filename, char *str)
+char **get_current_hour(void)
 {
-    if (filename == NULL)
-        return -1;
-    if (strlen(str) == 0)
-        return 0;
     char *current_time = get_actual_time();
     char **str_split_time = my_splitstr(current_time, ' ');
     char **str_split_hours = my_splitstr(str_split_time[3], ':');
-    char *str_file_in_memory = my_load_file_in_memory(filename);
+    free_tab_char(str_split_time);
+    return str_split_hours;
+}
+
+int append_cmd_to_history(const char *filename, char *str)
+{
+    char **str_split_hours = NULL;
+    char *str_file_in_memory = NULL;
+    if (filename == NULL || str == NULL)
+        return -1;
+    if (strlen(str) == 0)
+        return 0;
+    str_split_hours = get_current_hour();
+    str_file_in_memory = my_load_file_in_memory(filename);
     int value_return = create_history(str_file_in_memory,
     filename, str, str_split_hours);
     if (value_return == 1){
@@ -90,7 +90,6 @@ int append_cmd_to_history(const char *filename, char *str)
         str_file_in_memory, str_split_hours);
     }
     free_tab_char(str_split_hours);
-    free_tab_char(str_split_time);
     free(str_file_in_memory);
     return value_return;
 }

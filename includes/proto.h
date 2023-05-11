@@ -62,9 +62,10 @@
     int append_cmd_to_history(const char *filename, char *str);
     int append_str_to_file(const char *filename, char *str);
     int display_file(const char *filename);
+    char *get_actual_time(void);
 
         /* error_handing */
-    void error_and_free_message_cmd(base_minishell_t *base, char **tab);
+    int error_and_free_message_cmd(base_minishell_t *base, char **tab);
     int check_redirector_left(all_str_t *all_str, args_s_t *args_s, int *x);
     int check_redirector_right(all_str_t *all_str, args_s_t *args_s, int *x);
     int check_argc_argv(int ac, char const *const *av);
@@ -105,7 +106,7 @@
     char **command);
     int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
     char **tab_command);
-    void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab);
+    int execution(base_minishell_t *base, need_tab_t *need_tab, char **tab);
     int display_error_command(char *cmd);
     int double_left_redirector(base_minishell_t *base, need_tab_t *need_tab);
     int single_left_redirector(base_minishell_t *base, need_tab_t *need_tab,
@@ -113,8 +114,8 @@
     int double_left_redirector_child(base_minishell_t *base,
     need_tab_t *need_tab, char *filename, char **tab_command);
     int execute_cmd_and_cmd(base_minishell_t *base, need_tab_t *need_tab);
-    void check_cmd_with_slash(bool *search_in_path_cmd, char **tab);
-    void print_error_and_free(char **tab, base_minishell_t *base,
+    int check_cmd_with_slash(bool *search_in_path_cmd, char **tab);
+    int print_error_and_free(char **tab, base_minishell_t *base,
     need_tab_t *need_tab);
     int special_exec(base_minishell_t *base, need_tab_t *need_tab, int *x,
     int *client);
