@@ -42,7 +42,7 @@ int display_error_command(char *cmd)
     if (cmd == NULL)
         return 0;
     switch (errno){
-        case 2:
+        case ENOENT:
             if (display_with_permission(cmd) == 84)
                 return 84;
             break;

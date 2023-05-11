@@ -8,7 +8,6 @@
 #include <errno.h>
 #include <string.h>
 #include <fcntl.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -24,14 +23,11 @@
 void display_error_command_bad_binary(base_minishell_t *base, need_tab_t
 *need_tab, char * cmd)
 {
-    write(2, cmd, my_strlen(cmd));
-    write(2, ": ", 2);
-    write(2, cmd, my_strlen(cmd));
-    write(2, ": cannot execute binary file\n", 29);
+    fprintf(stderr,"%s: %s. Wrong Architecture.\n", cmd, strerror(errno));
     if (base->yes_or_not == 1)
         free_tab_int(need_tab);
     free_all(base, need_tab);
-    exit(126);
+    exit(1);
 }
 
 void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
@@ -40,7 +36,7 @@ void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
     execve(tab[0], tab, base->env);
     bool search_in_path_cmd = false;
     check_cmd_with_slash(&search_in_path_cmd, tab);
-    if (errno == 8)
+    if (errno == ENOEXEC)
         display_error_command_bad_binary(base, need_tab, tab[0]);
     if (search_in_path_cmd == false) {
         for (int i = 0; base->path[i] != NULL; i += 1) {
