@@ -34,7 +34,7 @@ static int echo_command_ter(char **command, int tab_len, int i)
     return OK;
 }
 
-static int oifozehguzeihfgzo(int multiple, int i, int i_begin, char **command)
+static int write_echo(int multiple, int i, int i_begin, char **command)
 {
     int len_str = 0;
     int tab_len = my_tablen(command);
@@ -67,7 +67,7 @@ static int echo_command_sub(char **command, int tab_len, int flag, int i)
     if (my_tablen(command) - i != 1)
         multiple = 1;
     for (; command[i] != NULL; i ++) {
-        if (oifozehguzeihfgzo(multiple, i, i_begin, command) == KO)
+        if (write_echo(multiple, i, i_begin, command) == KO)
             return KO;
         if (echo_command_ter(command, tab_len, i) != OK)
             return KO;
