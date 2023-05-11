@@ -29,6 +29,7 @@
         int redirect_arg;
         int aft_arg;
         char *left_redirector_str;
+        int special_exec;
     } need_tab_t;
 
     typedef struct all_str_s {

@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "struct.h"
 #include "struct_args_for_entry.h"
 
@@ -73,7 +74,8 @@
 
         /* command */
     void close_function(base_minishell_t *base, need_tab_t *need_tab);
-    int check_left_redirector(base_minishell_t *base, need_tab_t *need_tab);
+    int check_left_redirector_and_param(base_minishell_t *base,
+    need_tab_t *need_tab);
     int echo_command(base_minishell_t *base, char **command);
     int child_display_parameter(base_minishell_t *base, need_tab_t *need_tab);
     int command_with_parameter(base_minishell_t *base, need_tab_t *need_tab);
@@ -110,6 +112,12 @@
     char **tab_command);
     int double_left_redirector_child(base_minishell_t *base,
     need_tab_t *need_tab, char *filename, char **tab_command);
+    int execute_cmd_and_cmd(base_minishell_t *base, need_tab_t *need_tab);
+    void check_cmd_with_slash(bool *search_in_path_cmd, char **tab);
+    void print_error_and_free(char **tab, base_minishell_t *base,
+    need_tab_t *need_tab);
+    int special_exec(base_minishell_t *base, need_tab_t *need_tab, int *x,
+    int *client);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);

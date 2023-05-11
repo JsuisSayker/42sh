@@ -52,18 +52,18 @@ int *x)
 {
     if (!need_tab || !base)
         return KO;
-    if (check_left_redirector(base, need_tab) == KO)
+    int client = 0;
+    if (check_left_redirector_and_param(base, need_tab) == KO)
         return KO;
     if (check_if_redirector(base->p_command[need_tab->tab_pos_y]\
     [need_tab->tab_pos_x], need_tab) == OK){
         need_tab->fd_pos += 1;
             return OK;
     }
-    if (need_tab->redirect_arg != 0){
-        if (file_function(base, need_tab, x) != OK)
-            return KO;
+    if (special_exec(base, need_tab, x, &client) != OK)
+        return KO;
+    if (client == 1)
         return OK;
-    }
     if (child_display_parameter(base, need_tab) != OK)
         return KO;
     return OK;

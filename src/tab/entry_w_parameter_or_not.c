@@ -6,6 +6,7 @@
 */
 
 #include <unistd.h>
+#include <string.h>
 
 #include "proto.h"
 #include "macro.h"
@@ -27,7 +28,7 @@ static int entry_w_parameter(base_minishell_t *base, char *entry)
     base->p_command[tab_len] = NULL;
     for (i = 0; i != tab_len; i += 1){
         nbr_parameter_str = count_parameter(base->command[i]);
-        if ((base->p_command[i] = my_complexspliter(base->command[i], "|<>",
+        if ((base->p_command[i] = my_complexspliter(base->command[i], "&|<>",
         nbr_parameter_str)) == NULL)
             return KO;
     }

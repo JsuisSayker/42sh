@@ -85,7 +85,6 @@ int nbr_parameter)
 
 char **my_complexspliter(char const *str, char *separator, int nbr_parameter)
 {
-    int j = 0;
     int k = 0;
     int len_word;
     char **tab = NULL;
