@@ -20,6 +20,9 @@ char *str, char **str_split_hours)
 {
     FILE *fd;
 
+    if (str_file_in_memory == NULL || filename == NULL || str == NULL ||
+    str_split_hours == NULL)
+        return KO;
     if (str_file_in_memory == NULL){
         fd = fopen(filename, "w+");
         fprintf(fd, "%6d\t%2s:%s\t%s\n", 1, str_split_hours[0],
@@ -33,6 +36,8 @@ char *str, char **str_split_hours)
 int get_nb_cmd(char **str_split_text, char **str_split_line, int *nb_end,
 int i)
 {
+    if (str_split_text == NULL || str_split_line == NULL || nb_end == NULL)
+        return KO;
     if (str_split_text[i + 1] == NULL){
         int j = 0;
         for (; str_split_line[0][j] == ' '; j += 1);
