@@ -42,7 +42,7 @@ void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab)
     check_cmd_with_slash(&search_in_path_cmd, tab);
     if (errno == 8)
         display_error_command_bad_binary(base, need_tab, tab[0]);
-    if (tab[0][0] != '.' && tab[0][1] != '/' && search_in_path_cmd == false) {
+    if (search_in_path_cmd == false) {
         for (int i = 0; base->path[i] != NULL; i += 1) {
             char *command = string_command(base->path[i], tab[0]);
             execve(command, tab, base->env);
