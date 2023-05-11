@@ -27,18 +27,6 @@ static int parameter_after_command(base_minishell_t *base, need_tab_t *need_tab)
         if (my_strncmp("|", base->p_command[need_tab->tab_pos_y]
         [need_tab->tab_pos_x + 1], 1) == OK)
             return OK;
-        if (my_strncmp(">", base->p_command[need_tab->tab_pos_y]
-        [need_tab->tab_pos_x + 1], 1) == OK)
-            return OK;
-        if (my_strncmp("<", base->p_command[need_tab->tab_pos_y]
-        [need_tab->tab_pos_x + 1], 1) == OK)
-            return OK;
-        if (my_strncmp(">>", base->p_command[need_tab->tab_pos_y]
-        [need_tab->tab_pos_x + 1], 2) == OK)
-            return OK;
-        if (my_strncmp("<<", base->p_command[need_tab->tab_pos_y]
-        [need_tab->tab_pos_x + 1], 2) == OK)
-            return OK;
     }
     return KO;
 }

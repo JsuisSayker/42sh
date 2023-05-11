@@ -33,12 +33,15 @@ char *filename, char **tab_command)
 {
     int fd;
     int rm = 0;
+    char *str;
     if (!base || !need_tab || !tab_command || !filename)
         return KO;
     if ((fd = open(filename, O_RDONLY)) == KO){
         close(fd);
         return OK;
     }
+    if ((str = my_load_fd_in_memory(fd)) == NULL)
+        return KO;
     dup2(fd, STDIN_FILENO);
     if ((rm = remove(filename)) != 0)
         return KO;

@@ -19,8 +19,8 @@ static int file_function_ter(base_minishell_t *base, need_tab_t *need_tab)
         return KO;
     if (strcmp("<<", base->p_command[need_tab->tab_pos_y]\
     [need_tab->tab_pos_x + 1]) == OK){
-        if (double_left_redirector(base, need_tab) != OK)
-            return KO;
+        if (child_display_parameter(base, need_tab) == OK)
+            return OK;
     }
     return OK;
 }

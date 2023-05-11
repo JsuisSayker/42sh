@@ -7,6 +7,7 @@ Reproduces the terminal with :
         • backticks (“’),
         • history (‘!’),
         • aliases
+        • redirector ('<', '>', '<<', '>>')
         • line edition (multiline, dynamic rebinding, auto-completion dynamic)
 ```
 ## Technologies

@@ -7,6 +7,8 @@
 
 #include <unistd.h>
 #include <string.h>
+#include <fcntl.h>
+#include <stdio.h>
 
 #include "proto.h"
 #include "macro.h"
@@ -27,7 +29,7 @@ char *str)
 int right_redirector(base_minishell_t *base, need_tab_t *need_tab,
 char **command)
 {
-    char *str;
+    char *str = NULL;;
     if ((str = my_load_fd_in_memory(need_tab->fd[need_tab->fd_pos - 1][0]))
     == NULL)
         return KO;

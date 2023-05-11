@@ -61,7 +61,7 @@ char *my_load_fd_in_memory(int fd)
         return NULL;
     }
     result_str[0] = '\0';
-    while ((nread = read(fd, buffer, len_buffer)) != 0){
+    while ((nread = read(fd, buffer, len_buffer)) > 0){
         if ((result_str = add_str_to_end_str(result_str, buffer, nread))
         == NULL){
             close(fd);
