@@ -68,6 +68,7 @@
     int error_message_parameter(base_minishell_t * base, args_s_t *args);
     int check_before(all_str_t *all_str, args_s_t * args_s, int *x);
     int check_pipe(all_str_t *all_str, args_s_t *args, int *x);
+    int check_for_backticks(base_minishell_t *base);
 
         /* command */
     void close_function(base_minishell_t *base, need_tab_t *need_tab);
