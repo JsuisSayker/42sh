@@ -62,10 +62,10 @@ char **tab)
         return KO;
     duplicate_function(base, need_tab);
     if (need_tab->redirect_arg == 1){
-        if (left_redirector(base, need_tab, tab) == OK){
+        if (left_redirector(base, need_tab, tab) != OK){
             free_all(base, need_tab);
             free_tab_char(tab);
-            exit(0);
+            exit(1);
         }
     }
     if (base->yes_or_not == 1){

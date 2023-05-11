@@ -16,7 +16,7 @@
 #include "struct.h"
 #include "proto_lib.h"
 
-static int modif_str(char *entry)
+int modif_str(char *entry)
 {
     int i = 0;
 

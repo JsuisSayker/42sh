@@ -26,6 +26,8 @@ static int clear_len(char *str, int len)
             break;
         count += 1;
     }
+    if (str[len - 1] == '\n')
+        count += 1;
     return count;
 }
 

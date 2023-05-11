@@ -7,7 +7,6 @@
 
 #include <unistd.h>
 #include <string.h>
-#include <fcntl.h>
 
 #include "proto.h"
 #include "macro.h"
@@ -47,41 +46,4 @@ char **command)
         return OK;
     }
     return 1;
-}
-
-int error_message(char *filename)
-{
-    int len = 0;
-    if (!filename)
-        return KO;
-    if ((len = my_strlen(filename)) == KO)
-        return KO;
-    if (write(1, filename, len) == KO)
-        return KO;
-    if (write(1, ": No such file or directory.\n", 29) == KO)
-        return KO;
-    free(filename);
-    return OK;
-}
-
-int left_redirector(base_minishell_t *base, need_tab_t *need_tab,
-char **tab_command)
-{
-    char *filename = NULL;
-    int fd;
-    if ((filename = clean_str(base->p_command[need_tab->tab_pos_y]\
-    [need_tab->tab_pos_x + 2])) == NULL)
-        return KO;
-    if (strcmp("<", base->p_command[need_tab->tab_pos_y]\
-    [need_tab->tab_pos_x + 1]) == OK){
-        if ((fd = open(filename, O_RDONLY)) == KO){
-            error_message(filename);
-            close(fd);
-            return OK;
-        }
-        dup2(fd, STDIN_FILENO);
-        close(fd);
-        execution(base, need_tab, tab_command);
-    }
-    return OK;
 }

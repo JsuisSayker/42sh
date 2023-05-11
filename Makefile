@@ -48,7 +48,9 @@ SRC_COMMAND	=	command.c									\
 				history.c									\
 				echo_command.c								\
 				file_function/redirector.c					\
-				file_function/left_or_right_redirector.c	\
+				file_function/left_redirector.c				\
+				file_function/left_redirector_sub.c			\
+				file_function/right_redirector.c			\
 				with_parameter/function_build.c				\
 				with_parameter/command_with_parameter.c		\
 				with_parameter/duplicate_and_close_pipe.c	\

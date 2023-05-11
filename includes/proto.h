@@ -42,6 +42,9 @@
     int put_stdout_in_file(const char *filename, char *str);
     char *clean_str(char *str);
     char *tab_to_char(char **tab);
+    int modif_str(char *entry);
+    char *realloc_function(char *str, char *entry, int len_entry);
+    char *create_first_str(char *entry, int len_entry);
 
         /* tab */
     char **reduce_tab(char **src, char *str);
@@ -102,6 +105,11 @@
     char **tab_command);
     void execution(base_minishell_t *base, need_tab_t *need_tab, char **tab);
     int display_error_command(char *cmd);
+    int double_left_redirector(base_minishell_t *base, need_tab_t *need_tab);
+    int single_left_redirector(base_minishell_t *base, need_tab_t *need_tab,
+    char **tab_command);
+    int double_left_redirector_child(base_minishell_t *base,
+    need_tab_t *need_tab, char *filename, char **tab_command);
 
         /* cd */
     int move_in_folder(base_minishell_t *base, char *direction);
