@@ -55,12 +55,10 @@ int *nbr_parameter, int *restart)
         *nbr_parameter = take_parameter(entry);
         if (*nbr_parameter == 0)
             replace_alias_with_command(base, &entry);
-        if (entry_w_parameter_or_not(base, entry, nbr_parameter) != OK) {
+        if (entry_w_parameter_or_not(base, entry, nbr_parameter) != OK){
             free_tab_char(base->command);
             *restart = 1;
         }
-        if (check_for_backticks(base) != OK)
-            *restart = 1;
         if (*nbr_parameter != 0 && *restart == 0)
             replace_alias_with_parameter(base);
     }
